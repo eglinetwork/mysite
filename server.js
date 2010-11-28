@@ -107,6 +107,12 @@ server.get('/pairs', function(req,res){
     });
 });
 
+server.post('/service', function(req,res){
+    //res.send('Hello World'); 
+    res.send(req.body);
+   
+});
+
 
 //A Route for Creating a 500 Error (Useful to keep around)
 server.get('/500', function(req, res){
