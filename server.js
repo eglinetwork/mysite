@@ -1,3 +1,8 @@
+//Global site settings
+var settings = {analyticssiteid : 'UA-10297507-1',
+                app_version : 'dev'};
+
+
 //setup Dependencies
 require(__dirname + "/lib/setup").ext( __dirname + "/lib").ext( __dirname + "/lib/express/support");
 var connect = require('connect')
@@ -22,18 +27,22 @@ server.error(function(err, req, res, next){
                   header: '#Header#'
                  ,footer: '#Footer#'
                  ,title : '404 - Not Found'
+                 ,app_version : settings.app_version
+                 ,app_name : 'error'
                  ,description: ''
                  ,author: ''
-                 ,analyticssiteid: 'XXXXXXX' 
+                 ,analyticssiteid: settings.analyticssiteid 
                 },status: 404 });
     } else {
         res.render('500.ejs', { locals: { 
                   header: '#Header#'
                  ,footer: '#Footer#'
-                 ,title : 'The Server Encountered an Error'
+                 ,title : '500 - The Server Encountered an Error'
+                 ,app_version : settings.app_version
+                 ,app_name : 'error'
                  ,description: ''
                  ,author: ''
-                 ,analyticssiteid: 'XXXXXXX'
+                 ,analyticssiteid: settings.analyticssiteid
                  ,error: err 
                 },status: 500 });
     }
@@ -65,9 +74,26 @@ server.get('/', function(req,res){
     locals : { 
               header: '#Header#'
              ,footer: '#Footer#'
-             ,title : 'Page Title'
+             ,title : 'Node Site with Express'
+             ,app_version : settings.app_version
+             ,app_name : 'index'
              ,description: 'Page Description'
-             ,author: 'Your Name'
+             ,author: 'Marco Egli'
+             ,analyticssiteid: 'XXXXXXX' 
+            }
+  });
+});
+
+server.get('/pairs', function(req,res){
+  res.render('pairs.ejs', {
+    locals : { 
+              header: '#Header#'
+             ,footer: '#Footer#'
+             ,title : 'Pairs'
+             ,app_version : settings.app_version
+             ,app_name : 'pairs'
+             ,description: 'Page Description'
+             ,author: 'Marco Egli'
              ,analyticssiteid: 'XXXXXXX' 
             }
   });
