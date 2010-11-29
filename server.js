@@ -108,9 +108,7 @@ server.get('/pairs', function(req,res){
 });
 
 server.post('/service', function(req,res){
-    //res.send('Hello World'); 
-    res.send(req.body);
-   
+    res.send(req.rawBody);
 });
 
 
