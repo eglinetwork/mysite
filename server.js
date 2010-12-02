@@ -91,8 +91,6 @@ server.get('/', function(req,res){
 });
 
 server.get('/pairs', function(req,res){
-    console.log(req.session);
-    console.log(req.sessionID);
     res.render('pairs.ejs', {
         locals : { 
             header: '#Header#',
