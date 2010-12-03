@@ -2,9 +2,20 @@
  * @author egli
  */
 
-YUI().use("node","io-base", "json", function(Y) {
+YUI().use("node","io-base", "json",'tabview', function(Y) {
  
-    //Get a reference to the Node that we are using
+     function init() {
+        // Y.log('domready fired');
+
+        var tabview = new Y.TabView({
+            srcNode: '#tabview'
+        });
+        tabview.render();
+		
+    }
+    Y.on("domready", init);
+ 
+     //Get a reference to the Node that we are using
     //to report results:
     var div = Y.Node.get('#responseContainer');
  
