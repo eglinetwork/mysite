@@ -78,12 +78,12 @@ server.listen(port);
 server.get('/', function(req,res){
     res.render('index.ejs', {
         locals : { 
-            header: '#Header#',
-            footer: '#Footer#',
-            title : 'Node Site with Express',
+            header: '',
+            footer: '',
+            title : 'My Personal Website',
             app_version : settings.app_version,
             app_name : 'index',
-            description: 'Page Description',
+            description: 'This is my personal website. Here you fine a few things about me and some of my projects.',
             author: 'Marco Egli',
             analyticssiteid: settings.analyticssiteid 
         }
@@ -98,7 +98,7 @@ server.get('/pairs', function(req,res){
             title : 'Pairs',
             app_version : settings.app_version,
             app_name : 'pairs',
-            description: 'Page Description',
+            description: 'Play pairs with beautiful photos',
             author: 'Marco Egli',
             analyticssiteid: settings.analyticssiteid 
         }

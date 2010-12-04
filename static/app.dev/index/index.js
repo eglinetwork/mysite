@@ -4,18 +4,19 @@
 
 YUI().use("node","io-base", "json",'tabview', function(Y) {
  
-     function init() {
+    function init() {
         // Y.log('domready fired');
 
         var tabview = new Y.TabView({
             srcNode: '#tabview'
         });
         tabview.render();
+        
 		
     }
     Y.on("domready", init);
  
-     //Get a reference to the Node that we are using
+    //Get a reference to the Node that we are using
     //to report results:
     var div = Y.Node.get('#responseContainer');
  
@@ -89,6 +90,4 @@ YUI().use("node","io-base", "json",'tabview', function(Y) {
  
     // Make a request when the button is clicked:
     Y.on("click", makeRequest, "#requestButton");
- 
-    Y.log("As you interact with this example, relevant steps in the process will be logged here.", "info", "example");
 });
