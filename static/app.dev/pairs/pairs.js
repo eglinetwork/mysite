@@ -21,16 +21,16 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
         tabview.on('selectionChange', function(e) {
 
-            Y.log(e.newVal);
+            // Y.log(e.newVal);
             // On selection of tab table
-            if (e.newVal && e.newVal.get('index') === 1){
-                var node = Y.one('#cardTable .card');
-                var nodeWidth = node.get('offsetWidth')
-                Y.log(nodeWidth);
-                Y.log(node);
-            }
+            //            if (e.newVal && e.newVal.get('index') === 1){
+            //                var node = Y.one('#cardTable .card');
+            //                var nodeWidth = node.get('offsetWidth')
+            //                Y.log(nodeWidth);
+            //                Y.log(node);
+            //            }
 
-        });
+            });
 
 
         tabview.render();
@@ -50,10 +50,27 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
     var createCardStylesheet = function(){
 
-        var stylesheet = Y.StyleSheet('card').set('.card', {
+        var stylesheet = Y.StyleSheet('card');
+        
+        stylesheet.set('.card', {
             border : "1px solid",
+            borderRadius : "5px",
             margin : "0.5em",
             overflow : "hidden"
+        });
+        
+        stylesheet.set('.card .back', {
+            margin : "1em",
+            border : "1px solid"
+        });
+        
+                
+        stylesheet.set('.card .face', {
+            margin : "1em",
+            border : "1px solid",
+            overflow : "hidden",
+            textAlign : "center",
+            display : "none"
         });
 
     }
@@ -74,7 +91,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
             for (var j=0; j<cardsInRow; j++){
 
                 if(cardIndex < cardsLength){
-                    nodeCardRows.item(i).append('<div class="yui3-u-1-8"><div data-cardindex="'+cardIndex+'" class="card">card</div></div>');
+                    nodeCardRows.item(i).append('<div class="yui3-u-1-8"><div data-cardindex="'+cardIndex+'" class="card"><div class="face"></div><div class="back"><img style="width:100%;" src="app.dev/pairs/images/bg.png"></div></div></div>');
                     cards[cardIndex] = {
                         status : "created",
                         faceDown : true,
@@ -92,13 +109,40 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                         
             if(card.faceDown){
                 card.faceDown = false;
-                // Show or append the photo
-                photoId = card.photo;
-                e.currentTarget.append('<img src="'+ photoset[photoId].Square.source +'">');                            
+                
+                // Append the photo
+                if(card.status === "created"){
+                    photoId = card.photo;
+                    
+                    e.currentTarget.one('.face').append('<img src="'+ photoset[photoId].Small.source +'">');  
+                    card.status = "completed";         
+                    
+                    if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
+                        e.currentTarget.one('.face img').setStyle("height","120%");
+                    } else {
+                        e.currentTarget.one('.face img').setStyle("width","120%");
+                        e.currentTarget.one('.face img').setStyle("verticalAlign","middle");
+                    }
+                     
+                }
+                
+                // Show the foto
+                var backWidth = e.currentTarget.one('.back').get('offsetWidth');
+                
+                e.currentTarget.one('.face').setStyle("display","block");
+                e.currentTarget.one('.face').setStyle("height",backWidth);
+                e.currentTarget.one('.face').setStyle("lineHeight",backWidth);
+                
+                e.currentTarget.one('.back').setStyle("display","none");
+ 
             } else {
                 card.faceDown = true;
-                // Hide or remove the photo        
-                e.currentTarget.removeChild(Y.Node.getDOMNode(e.currentTarget).lastChild);
+                // Hide the photo                   
+                e.currentTarget.one('.face').setStyle("display","none");
+                e.currentTarget.one('.back').setStyle("display","block");  
+                
+
+            
             }
 
         };
