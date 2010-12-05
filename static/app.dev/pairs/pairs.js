@@ -61,7 +61,8 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         
         stylesheet.set('.card .back', {
             margin : "1em",
-            border : "1px solid"
+            border : "1px solid",
+            lineHeight : "0px"
         });
         
                 
@@ -127,11 +128,11 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                 }
                 
                 // Show the foto
-                var backWidth = e.currentTarget.one('.back').get('offsetWidth');
+                var backHeigth = e.currentTarget.one('.back').get('offsetHeight')-2;
                 
                 e.currentTarget.one('.face').setStyle("display","block");
-                e.currentTarget.one('.face').setStyle("height",backWidth);
-                e.currentTarget.one('.face').setStyle("lineHeight",backWidth);
+                e.currentTarget.one('.face').setStyle("height",backHeigth);
+                e.currentTarget.one('.face').setStyle("lineHeight",backHeigth);
                 
                 e.currentTarget.one('.back').setStyle("display","none");
  
