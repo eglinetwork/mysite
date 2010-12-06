@@ -92,6 +92,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
             for (var j=0; j<cardsInRow; j++){
 
                 if(cardIndex < cardsLength){
+                    //TODO: replace app.dev with value from configruation
                     nodeCardRows.item(i).append('<div class="yui3-u-1-8"><div data-cardindex="'+cardIndex+'" class="card"><div class="face"></div><div class="back"><img style="width:100%;" src="app.dev/pairs/images/bg.png"></div></div></div>');
                     cards[cardIndex] = {
                         status : "created",
@@ -119,31 +120,32 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                     card.status = "completed";         
                     
                     if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
-                        e.currentTarget.one('.face img').setStyle("height","120%");
+                        e.currentTarget.one('.face img').setStyle("height","125%");
                     } else {
-                        e.currentTarget.one('.face img').setStyle("width","120%");
+                        e.currentTarget.one('.face img').setStyle("width","100%");
                         e.currentTarget.one('.face img').setStyle("verticalAlign","middle");
                     }
                      
                 }
                 
-                // Show the foto
+                // Show the photo
                 var backHeigth = e.currentTarget.one('.back').get('offsetHeight')-2;
                 
                 e.currentTarget.one('.face').setStyle("display","block");
                 e.currentTarget.one('.face').setStyle("height",backHeigth);
                 e.currentTarget.one('.face').setStyle("lineHeight",backHeigth);
                 
+                // Hide the back
                 e.currentTarget.one('.back').setStyle("display","none");
  
             } else {
                 card.faceDown = true;
+                
                 // Hide the photo                   
                 e.currentTarget.one('.face').setStyle("display","none");
-                e.currentTarget.one('.back').setStyle("display","block");  
                 
-
-            
+                // Show the back
+                e.currentTarget.one('.back').setStyle("display","block");  
             }
 
         };
