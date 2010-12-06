@@ -5,7 +5,7 @@
 YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
     var cards = [],
-    cardsLength = 44,
+    cardsLength = 40,
     photoset = {},
     photosetLength = cardsLength/2,
     themeQuery = 'steam engine';
@@ -95,7 +95,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                     //TODO: replace app.dev with value from configruation
                     nodeCardRows.item(i).append('<div class="yui3-u-1-8"><div data-cardindex="'+cardIndex+'" class="card"><div class="face"></div><div class="back"><img style="width:100%;" src="app.dev/pairs/images/bg.png"></div></div></div>');
                     cards[cardIndex] = {
-                        status : "created",
+                        status : "initialized",
                         faceDown : true,
                         photo : null
                     };
@@ -108,26 +108,31 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
             var card, cardIndex, photoId;
             cardIndex = e.currentTarget.getAttribute('data-cardindex');
             card = cards[cardIndex];
-                        
+
+            // Append the photo
+            if(card.status === "initialized"){
+                photoId = card.photo;
+                    
+                e.currentTarget.one('.face').append('<img src="'+ photoset[photoId].Small.source +'">');  
+                card.status = "completed";         
+                    
+                if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
+                    e.currentTarget.one('.face img').setStyle("height","125%");
+                } else {
+                    e.currentTarget.one('.face img').setStyle("width","100%");
+                    e.currentTarget.one('.face img').setStyle("verticalAlign","middle");
+                } 
+            }
+
+            flipCard(e,card);
+
+
+        };
+        
+        var flipCard = function(e,card){
             if(card.faceDown){
                 card.faceDown = false;
-                
-                // Append the photo
-                if(card.status === "created"){
-                    photoId = card.photo;
-                    
-                    e.currentTarget.one('.face').append('<img src="'+ photoset[photoId].Small.source +'">');  
-                    card.status = "completed";         
-                    
-                    if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
-                        e.currentTarget.one('.face img').setStyle("height","125%");
-                    } else {
-                        e.currentTarget.one('.face img').setStyle("width","100%");
-                        e.currentTarget.one('.face img').setStyle("verticalAlign","middle");
-                    }
-                     
-                }
-                
+
                 // Show the photo
                 var backHeigth = e.currentTarget.one('.back').get('offsetHeight')-2;
                 
@@ -147,8 +152,8 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                 // Show the back
                 e.currentTarget.one('.back').setStyle("display","block");  
             }
-
-        };
+        }
+        
         Y.all('#cardTable .card').on('click', onClickCard);
 
     }
