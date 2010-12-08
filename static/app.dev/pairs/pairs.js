@@ -1,14 +1,25 @@
 /**
  * @author egli
  */
-
 YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
     var cards = [],
-    cardsLength = 40,
+    cardNodes,
+    cardsLength = 12,
     photoset = {},
     photosetLength = cardsLength/2,
-    themeQuery = 'steam engine';
+    themeQuery = 'steam engine',
+    game = {
+        players : 1, 
+        startDate : ''
+    },
+    turn = {
+        currentPlayer : 1, 
+        flippedCards: [], 
+        counter : 0,
+        startDate : null, 
+        endDate: null
+    };
 
 
     function init() {
@@ -105,56 +116,48 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         }
 
         var onClickCard = function(e) {
-            var card, cardIndex, photoId;
-            cardIndex = e.currentTarget.getAttribute('data-cardindex');
+            var card, cardNode, cardIndex, photoId;
+            cardNode = e.currentTarget;
+            cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
             card = cards[cardIndex];
 
             // Append the photo
             if(card.status === "initialized"){
                 photoId = card.photo;
                     
-                e.currentTarget.one('.face').append('<img src="'+ photoset[photoId].Small.source +'">');  
+                cardNode.one('.face').append('<img src="'+ photoset[photoId].Small.source +'">');  
                 card.status = "completed";         
                     
                 if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
-                    e.currentTarget.one('.face img').setStyle("height","125%");
+                    cardNode.one('.face img').setStyle("height","125%");
                 } else {
-                    e.currentTarget.one('.face img').setStyle("width","100%");
-                    e.currentTarget.one('.face img').setStyle("verticalAlign","middle");
+                    cardNode.one('.face img').setStyle("width","100%");
+                    cardNode.one('.face img').setStyle("verticalAlign","middle");
                 } 
             }
 
-            flipCard(e,card);
-
+            if(turn.flippedCards.length == 0){
+                startTurn();
+                flipCard(cardNode);
+                turn.flippedCards[0] = cardIndex;
+            } else if (turn.flippedCards.length == 1){
+                if(turn.flippedCards[0] !== cardIndex){
+                    flipCard(cardNode);
+                    turn.flippedCards[1] = cardIndex;                    
+                }
+            } else {
+                cardNodes.each(function(n){
+                    if(cards[parseInt(n.getAttribute('data-cardindex'),10)].faceDown == false){
+                        flipCard(n);
+                    }
+                })
+                endTurn();
+            }
 
         };
         
-        var flipCard = function(e,card){
-            if(card.faceDown){
-                card.faceDown = false;
-
-                // Show the photo
-                var backHeigth = e.currentTarget.one('.back').get('offsetHeight')-2;
-                
-                e.currentTarget.one('.face').setStyle("display","block");
-                e.currentTarget.one('.face').setStyle("height",backHeigth);
-                e.currentTarget.one('.face').setStyle("lineHeight",backHeigth);
-                
-                // Hide the back
-                e.currentTarget.one('.back').setStyle("display","none");
- 
-            } else {
-                card.faceDown = true;
-                
-                // Hide the photo                   
-                e.currentTarget.one('.face').setStyle("display","none");
-                
-                // Show the back
-                e.currentTarget.one('.back').setStyle("display","block");  
-            }
-        }
-        
         Y.all('#cardTable .card').on('click', onClickCard);
+        cardNodes = Y.all('#cardTable .card'); 
 
     }
 
@@ -206,5 +209,77 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         // Y.log(cards);
         });
     };
+    
+    
+    var flipCard = function(cardNode){
+        
+        var card, cardIndex;
+        cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
+        card = cards[cardIndex];
+                
+        if(card.faceDown){
+            card.faceDown = false;
+
+            // Show the photo
+            var backHeigth = cardNode.one('.back').get('offsetHeight')-2;
+                
+            cardNode.one('.face').setStyle("display","block");
+            cardNode.one('.face').setStyle("height",backHeigth);
+            cardNode.one('.face').setStyle("lineHeight",backHeigth);
+                
+            // Hide the back
+            cardNode.one('.back').setStyle("display","none");
+ 
+        } else {
+            card.faceDown = true;
+                
+            // Hide the photo                   
+            cardNode.one('.face').setStyle("display","none");
+                
+            // Show the back
+            cardNode.one('.back').setStyle("display","block");  
+        }
+    };
+    
+    var hideCard = function(cardNode){   
+        // Hide the photo                   
+        cardNode.setStyle("visibility","hidden");
+        
+    };
+    
+    
+    var wonPair = function(flippedCards){
+        var cardIndex;
+        cardNodes.each(function(n){
+            cardIndex = parseInt(n.getAttribute('data-cardindex'),10);
+            if(cardIndex == flippedCards[0] || cardIndex == flippedCards[1]){
+                hideCard(n);
+            }
+        })
+    };
+    
+   
+    
+    var startTurn = function(){
+        turn.counter += 1;
+        turn.startDate = new Date();
+        turn.endDate = null;
+    };
+    
+    var endTurn = function(){
+        var cardIndex0 = turn.flippedCards[0],
+        cardIndex1 = turn.flippedCards[1];
+        
+        turn.endDate = new Date();
+        
+        if(cards[cardIndex0].photo == cards[cardIndex1].photo){
+            wonPair(turn.flippedCards);
+            // Current player can play again
+        } else {
+            // next Player
+        }
+        
+        turn.flippedCards = [];
+    }
 
 });
