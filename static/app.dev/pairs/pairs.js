@@ -5,7 +5,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
     var cards = [],
     cardNodes,
-    cardsLength = 12,
+    cardsLength = 20,
     photoset = {},
     photosetLength = cardsLength/2,
     themeQuery = 'steam engine',
@@ -32,23 +32,26 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
         tabview.on('selectionChange', function(e) {
 
-            // Y.log(e.newVal);
             // On selection of tab table
-            //            if (e.newVal && e.newVal.get('index') === 1){
-            //                var node = Y.one('#cardTable .card');
-            //                var nodeWidth = node.get('offsetWidth')
-            //                Y.log(nodeWidth);
-            //                Y.log(node);
-            //            }
+            if (e.prevVal && e.prevVal.get('index') === 0){
+                
+                themeQuery = document.getElementById('inputTheme').value;                
+                cardsLength = document.getElementById('inputCardsLength').value; 
+                
+                createCards();
+                // TODO: depending params must be calculated
+                
+                createPhotoset();
+            }
 
-            });
+        });
 
 
         tabview.render();
 
-        createCards();
+        
 	
-        createPhotoset();
+       
 
         createCardStylesheet();
 
@@ -274,9 +277,9 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         
         if(cards[cardIndex0].photo == cards[cardIndex1].photo){
             wonPair(turn.flippedCards);
-            // Current player can play again
+        // Current player can play again
         } else {
-            // next Player
+        // next Player
         }
         
         turn.flippedCards = [];
