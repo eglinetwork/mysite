@@ -3,23 +3,14 @@
  */
 YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
-    var cards = [],
+    var cards,
     cardNodes,
-    cardsLength = 20,
-    photoset = {},
-    photosetLength = cardsLength/2,
-    themeQuery = 'steam engine',
-    game = {
-        players : 1, 
-        startDate : ''
-    },
-    turn = {
-        currentPlayer : 1, 
-        flippedCards: [], 
-        counter : 0,
-        startDate : null, 
-        endDate: null
-    };
+    cardsLength,
+    photoset,
+    photosetLength,
+    themeQuery,
+    game,
+    turn;
 
 
     function init() {
@@ -35,11 +26,11 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
             // On selection of tab table
             if (e.prevVal && e.prevVal.get('index') === 0){
                 
-                themeQuery = document.getElementById('inputTheme').value;                
-                cardsLength = document.getElementById('inputCardsLength').value; 
+
+                
+                loadSettings();
                 
                 createCards();
-                // TODO: depending params must be calculated
                 
                 createPhotoset();
             }
@@ -48,15 +39,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
 
         tabview.render();
-
-        
-	
-       
-
         createCardStylesheet();
-
-
-		
     }
     Y.on("domready", init);
 
@@ -69,19 +52,19 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         stylesheet.set('.card', {
             border : "1px solid",
             borderRadius : "5px",
-            margin : "0.5em",
+            margin : "5px",
             overflow : "hidden"
         });
         
         stylesheet.set('.card .back', {
-            margin : "1em",
+            margin : "8px",
             border : "1px solid",
             lineHeight : "0px"
         });
         
                 
         stylesheet.set('.card .face', {
-            margin : "1em",
+            margin : "8px",
             border : "1px solid",
             overflow : "hidden",
             textAlign : "center",
@@ -89,11 +72,39 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         });
 
     }
+    
+    var loadSettings = function(){
+        cards = [];
+        cardsLength = document.getElementById('inputCardsLength').value; 
+        photoset = {};
+        photosetLength = cardsLength/2;
+        themeQuery = document.getElementById('inputTheme').value;  
+        
+        game = {
+            players : 1, 
+            startDate : ''
+        };
+        turn = {
+            currentPlayer : 1, 
+            flippedCards: [], 
+            counter : 0,
+            startDate : null, 
+            endDate: null
+        };
+    }
 
     var createCards = function(){
-        var cardsInRow = 8,
+        var cardsInRow,
         nodeCardTable = Y.one('#cardTable'),
         nodeCardRows, cardIndex = 0;
+        
+        if(cardsLength<=32){
+            cardsInRow = Math.ceil(cardsLength/4);
+        } else {
+            cardsInRow = Math.ceil(cardsLength/Math.ceil(cardsLength/8));
+        }
+        
+        clearChilds(Y.Node.getDOMNode(nodeCardTable));
 
         // Create rows
         for (var i=0,len=Math.ceil(cardsLength/cardsInRow); i<len; i++){
@@ -165,6 +176,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
     }
 
     var createPhotoset = function(){
+        var nodePhotoList = Y.one('#tabPhotos ul'), photoFlickrUrl;
         var yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+themeQuery+'" and license="3")';
         //Y.log(yqlString);
         Y.YQL(yqlString, function(r) {
@@ -207,7 +219,16 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
             }
 
-            Y.log(photoset);
+            //Y.log(photoset);
+            
+            // Create the photo list
+            for (photoId in photoset) {
+                photoFlickrUrl = "http://flickr.com/photo.gne?id=" + photoId
+                nodePhotoList.append('<li><img src="'+ photoset[photoId].Small.source +'"> <a href="'+photoFlickrUrl+'" target="_blank">'+photoFlickrUrl+'</a></li>')
+            }
+            Y.on('load', function(){
+               Y.log("all photos loaded"); 
+            },window);
 
         // Y.log(cards);
         });
@@ -283,6 +304,12 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
         }
         
         turn.flippedCards = [];
+    }
+    
+    var clearChilds = function(el) {
+        while(el.firstChild) {
+            el.removeChild(el.firstChild);
+        }
     }
 
 });
