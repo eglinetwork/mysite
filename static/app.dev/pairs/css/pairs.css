@@ -1,2 +1,40 @@
 /*
+Styles for the photo pairs game
 */
+
+
+/* Card styles */
+
+.card {
+    border: 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+}
+
+.card .back {
+    margin: 8px;
+    border: 1px solid;
+    line-height: 0px;
+}
+
+.card .face {
+    margin: 8px;
+    border: 1px solid;
+    overflow: hidden;
+    text-align: center;
+    display: none
+}
+
+/* image style */
+
+.portrait {
+    height: 125%;
+}
+
+.landscape {
+    width: 100%;
+    vertical-align: middle;
+}

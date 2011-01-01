@@ -1,7 +1,7 @@
 /**
  * @author egli
  */
-YUI().use('node','yql','tabview','stylesheet', function(Y) {
+YUI().use('node','yql','tabview', function(Y) {
 
     var cards,
     cardNodes,
@@ -25,9 +25,7 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
             // On selection of tab table
             if (e.prevVal && e.prevVal.get('index') === 0){
-                
-
-                
+                  
                 loadSettings();
                 
                 createCards();
@@ -39,39 +37,10 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
 
 
         tabview.render();
-        createCardStylesheet();
     }
     Y.on("domready", init);
 
     // private functions
-
-    var createCardStylesheet = function(){
-
-        var stylesheet = Y.StyleSheet('card');
-        
-        stylesheet.set('.card', {
-            border : "1px solid",
-            borderRadius : "5px",
-            margin : "5px",
-            overflow : "hidden"
-        });
-        
-        stylesheet.set('.card .back', {
-            margin : "8px",
-            border : "1px solid",
-            lineHeight : "0px"
-        });
-        
-                
-        stylesheet.set('.card .face', {
-            margin : "8px",
-            border : "1px solid",
-            overflow : "hidden",
-            textAlign : "center",
-            display : "none"
-        });
-
-    }
     
     var loadSettings = function(){
         cards = [];
@@ -143,10 +112,9 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
                 card.status = "completed";         
                     
                 if(parseInt(photoset[photoId].Small.height,10) > parseInt(photoset[photoId].Small.width,10)){
-                    cardNode.one('.face img').setStyle("height","125%");
+                    cardNode.one('.face img').addClass('portrait');
                 } else {
-                    cardNode.one('.face img').setStyle("width","100%");
-                    cardNode.one('.face img').setStyle("verticalAlign","middle");
+                    cardNode.one('.face img').addClass('landscape');
                 } 
             }
 
@@ -247,10 +215,11 @@ YUI().use('node','yql','tabview','stylesheet', function(Y) {
             // Show the photo
             var backHeigth = cardNode.one('.back').get('offsetHeight')-2;
                 
-            cardNode.one('.face').setStyle("display","block");
             cardNode.one('.face').setStyle("height",backHeigth);
             cardNode.one('.face').setStyle("lineHeight",backHeigth);
-                
+
+            cardNode.one('.face').setStyle("display","block");
+
             // Hide the back
             cardNode.one('.back').setStyle("display","none");
  
