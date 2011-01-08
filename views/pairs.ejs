@@ -1,22 +1,54 @@
+<div>
+    <h1 id="applicationTitle">Photo Pairs</h1>
+    <div id="divGameInfo"><h2></h2><span class="button blue">Statistics</span></div>
+</div>
+
 <div id="tabview">
     <ul>
         <li><a href="#tabSettings">Settings</a></li>
-        <li><a href="#tabTable">Table</a></li>
+        <li><a href="#tabTable">Play Pairs</a></li>
         <li><a href="#tabPhotos">Photos</a></li>
     </ul>
     <div>
         <div id="tabSettings">
 
-            <div>
-                Theme
-                <input id="inputTheme">
-            </div>
-            <div>
-                Cards
-                <input id="inputCardsLength">
-                (16 - 40)
+            <div id="divAboutWidget">
+                <div class="yui3-widget-hd"><h3>About Photo Pairs</h3></div>
+                <div class="yui3-widget-bd">
+                    <ul>
+                        <li>All photos are loaded from <a href="http://www.flickr.com/" target="_blank">Flickr</a> with <a href="http://developer.yahoo.com/yql/" target="_blank">YQL</a>. Change the photo theme to get infinite variants of card sets.</li>
+                        <li>Play an easy game with 8 pairs or play it difficult with 20 pairs. Challenge yourself or play with up to four players.</li>
+                        <li>The game uses latest web technology like HTML5 and CSS3.<span id="spanBrowserSupport"> Your browser does <a href="http://caniuse.com/#agents=desktop&eras=farpast,past,now,near&cats=CSS,HTML5&nodetails=1" target="_blank">not support</a> the following enrichments: <span id="spanEnrichments"></span>.</span></li>
+                        <li>It is implemented with <a href="http://developer.yahoo.com/yui/3/" target="_blank">YUI3</a> and runs on a <a href="http://www.nodejs.org/" target="_blank">node.js</a> webserver</li>
+                        <li>Thanks for your feedback <a href="http://twitter.com/marcoegli/" target="_blank">@marcoegli</a> on Twitter</li>
+                    </ul>
+                </div>
+                <div class="yui3-widget-ft">Engineered by <a href="http://www.eglinetwork.ch/" target="_blank">Marco Egli</a></div>
             </div>
 
+            <form>
+                <fieldset>
+                    <label for="inputTheme">Photo Theme</label>
+                    <input id="inputTheme" type="text" placeholder="steam engine" required />
+                </fieldset>
+
+                <fieldset>
+                    <label for="inputPairsLength">Pairs (8 - 20)</label>
+                    <input id="inputPairsLength" type="number" min="8" max="20" step="1" value="12" required />
+                </fieldset>
+
+                <fieldset id="fieldsetPlayersNames">
+                    <label for="inputPlayerName1">Players Names</label>
+                    <input type="text" placeholder="Player 1" />
+                    <input type="text" />
+                    <input type="text" />
+                    <input type="text" />
+                </fieldset>
+
+                <div>
+                    <span id="buttonPlayNow" class="button blue">Play now!</span>
+                </div>
+            </form>
 
         </div>
         <div id="tabTable">
@@ -25,8 +57,9 @@
         </div>
         <div id="tabPhotos">
             <ul>
-                
+                <li>No photos loaded. Check your settings and start playing to load photos.</li>
             </ul>
         </div>
     </div>
 </div>
+

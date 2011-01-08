@@ -92,8 +92,8 @@ server.get('/', function(req,res){
 server.get('/pairs', function(req,res){
     res.render('pairs.ejs', {
         locals : { 
-            header: '#Header#',
-            footer: '#Footer#',
+            header: '',
+            footer: '',
             title : 'Pairs',
             app_version : settings.app_version,
             app_name : 'pairs',
