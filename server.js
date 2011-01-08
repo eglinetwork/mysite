@@ -79,10 +79,10 @@ server.get('/', function(req,res){
         locals : { 
             header: '',
             footer: '',
-            title : 'My Personal Website',
+            title : 'My Personal Website | eglinetwork',
             app_version : settings.app_version,
             app_name : 'index',
-            description: 'This is my personal website. Here you fine a few things about me and some of my projects.',
+            description: 'This is my personal website. Here you find a few things about me and some of my projects.',
             author: 'Marco Egli',
             analyticssiteid: settings.analyticssiteid 
         }
@@ -125,4 +125,4 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-console.log('Listening on http://127.0.0.1:' + port );
+console.log('Listening on port:' + port );
