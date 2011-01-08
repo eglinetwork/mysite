@@ -9,7 +9,7 @@ require(__dirname + "/lib/setup").ext( __dirname + "/lib").ext( __dirname + "/li
 var connect = require('connect')
 , express = require('express')
 , sys = require('sys')
-, port = 8081;
+, port = 80;
 
 //Setup Express
 var server = express.createServer(
@@ -103,11 +103,6 @@ server.get('/pairs', function(req,res){
         }
     });
 });
-
-server.post('/service', function(req,res){
-    res.send(req.rawBody);
-});
-
 
 //A Route for Creating a 500 Error (Useful to keep around)
 server.get('/500', function(req, res){
