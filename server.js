@@ -82,7 +82,7 @@ server.get('/', function(req,res){
             title : 'My Personal Website | eglinetwork',
             app_version : settings.app_version,
             app_name : 'index',
-            description: 'This is my personal website. Here you find a few things about me and some of my projects.',
+            description: 'This is my personal website. Here can you find a few things about me and some of my projects.',
             author: 'Marco Egli',
             analyticssiteid: settings.analyticssiteid 
         }
@@ -94,10 +94,10 @@ server.get('/pairs', function(req,res){
         locals : { 
             header: '',
             footer: '',
-            title : 'Pairs',
+            title : 'Photo Pairs',
             app_version : settings.app_version,
             app_name : 'pairs',
-            description: 'Play pairs with beautiful photos',
+            description: 'Play Pairs with beautiful photos. Pairs is also known as Concentration, Memory, Pelmanism, Shinkei-suijaku or Pexeso. All photos are loaded from Flickr. Change the photo theme to get individual variants of card sets.',
             author: 'Marco Egli',
             analyticssiteid: settings.analyticssiteid 
         }
