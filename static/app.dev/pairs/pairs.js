@@ -635,12 +635,10 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 		var anim = new Y.Anim({
 			node: nodeGameInfo,
 			from: {
-				backgroundColor:'#0095CD',
-				color:'#D9EEF7'
+				color:'#D7D7D7'
 			},
 			to: {
-				backgroundColor:'#FAA51A',
-				color:'#000000'
+				color:'#F47A20'
 			},
 			duration:0.8
 		});
