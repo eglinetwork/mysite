@@ -1,13 +1,14 @@
 MYSITE
 ======
 
-### "My Personal Website | eglinetwork":http://eglinetwork.no.de/
+### [My Personal Website | eglinetwork]: http://eglinetwork.no.de/
 
 * A list of my personal web projects
 * Some things about me
 
 
-### "Photo Pairs":http://eglinetwork.no.de/pairs
+
+### [Photo Pairs]: http://eglinetwork.no.de/pairs
 
 * Play an easy game with 8 pairs or play it difficult with 20 pairs. Challenge yourself or play with up to four players.
 * All photos are loaded from Flickr with YQL. Change the photo theme to get infinite variants of card sets.
