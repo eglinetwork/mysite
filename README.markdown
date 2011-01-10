@@ -1,7 +1,7 @@
 MYSITE
 ======
 
-### [My Personal Website | eglinetwork]: http://eglinetwork.no.de/
+### My Personal Website | eglinetwork (http://eglinetwork.no.de/)
 
 * A list of my personal web projects
 * Some things about me
