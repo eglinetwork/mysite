@@ -169,7 +169,7 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 			cardsInRow = Math.ceil(cardsLength/Math.ceil(cardsLength/8));
 		}
 
-		clearChilds(Y.Node.getDOMNode(nodeCardTable));
+                nodeCardTable.empty();
 
 		// Create rows
 		for (var i=0,len=Math.ceil(cardsLength/cardsInRow); i<len; i++){
@@ -305,7 +305,7 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 		
 
 			// Create the photo list
-			clearChilds(Y.Node.getDOMNode(nodePhotoList));
+                        nodePhotoList.empty();
 			for (photoId in photoset) {
 				photoFlickrUrl = "http://flickr.com/photo.gne?id=" + photoId
 				nodePhotoList.append('<li><img src="'+ photoset[photoId].Small.source +'"> <a href="'+photoFlickrUrl+'" target="_blank">'+photoFlickrUrl+'</a></li>')
@@ -524,14 +524,14 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 			// Show the photo
 			cardNode.one('.face').setStyle("display","block");
 			// Hide the back
-			cardNode.one('.back').setStyle("display","none");
+                        cardNode.one('.back').hide()
 			// Add faceup class
 			cardNode.addClass("faceup");
 
 		} else {
 			card.faceDown = true;
 			// Hide the photo
-			cardNode.one('.face').setStyle("display","none");
+                        cardNode.one('.face').hide();
 			// Show the back
 			cardNode.one('.back').setStyle("display","block");
 			// Remove faceup class
@@ -555,7 +555,6 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 			}
 		})
 	};
-
 
 
 	var startTurn = function(){
@@ -619,12 +618,6 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
 		}
 
 		turn.flippedCards = [];
-	}
-
-	var clearChilds = function(el) {
-		while(el.firstChild) {
-			el.removeChild(el.firstChild);
-		}
 	}
 
 	var setGameInfo = function(text){
