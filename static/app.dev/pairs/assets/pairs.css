@@ -189,13 +189,17 @@ input:-moz-placeholder {
     overflow: auto;
 }
 
+#tabSettings .yui3-overlay .yui3-widget-bd img {
+    float: right;
+    padding: 0.5em; 
+}
+
 #tabSettings ul {
     margin: 0 1em;
 }
 #tabSettings li {
     padding-bottom: 0.5em;
 }
-
 
 /* Card and tableTab styles */
 
