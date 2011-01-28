@@ -171,6 +171,14 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
             cardNode = e.currentTarget;
             cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
             card = cards[cardIndex];
+            
+            var faceDownAllCards = function(){
+                cardNodes.each(function(n){
+                    if(cards[parseInt(n.getAttribute('data-cardindex'),10)].faceDown == false){
+                        flipCard(n);
+                    }
+                });
+            }
 
             if(game.status > 0){
                 // Append the photo
@@ -195,13 +203,18 @@ YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', functi
                     if(turn.flippedCards[0] !== cardIndex){
                         flipCard(cardNode);
                         turn.flippedCards[1] = cardIndex;
+                        // Automatically flip cards
+                        window.setTimeout(function() {
+                            // If not already manually flipped
+                            if (turn.flippedCards.length == 2){
+                                faceDownAllCards();
+                                endTurn();
+                            }
+                        }, 2000);
+
                     }
                 } else {
-                    cardNodes.each(function(n){
-                        if(cards[parseInt(n.getAttribute('data-cardindex'),10)].faceDown == false){
-                            flipCard(n);
-                        }
-                    })
+                    faceDownAllCards();
                     endTurn();
                 }
             }
