@@ -3,6 +3,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
+        
+        <meta name="google-site-verification" content="iePOmkHL--ZFhJWuPL7bup6Nk4CbiOViNxhiz_D7yXI" />
 
         <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,46 +30,46 @@
         <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/combo?3.3.0/build/cssfonts/fonts-min.css&3.3.0/build/cssreset/reset-min.css&3.3.0/build/cssgrids/grids-min.css&3.3.0/build/cssbase/base-min.css">
 	<link rel="stylesheet" type="text/css" href="app.<%= app_version %>/<%= app_name %>/assets/<%= app_name %>.css">
 
-        </head>
-        <body>
+    </head>
+    <body>
 
-            <div id="container">
-                <header>
-                    <%= header %>
-                </header>
+        <div id="container">
+            <header>
+                <%= header %>
+            </header>
 
-                <div id="main">
-                    <%- body %>
-                </div>
+            <div id="main">
+                <%- body %>
+            </div>
 
-                <footer>
-                    <%= footer %>
-                </footer>
-            </div> 
-            <!--! end of #container -->
+            <footer>
+                <%= footer %>
+            </footer>
+        </div> 
+        <!--! end of #container -->
 
-            <!-- Javascript at the bottom for fast page loading -->
+        <!-- Javascript at the bottom for fast page loading -->
 
-            <!-- Grab Yahoo CDN's YUI -->
-            <script src="//yui.yahooapis.com/3.3.0/build/yui/yui-min.js"></script>
+        <!-- Grab Yahoo CDN's YUI -->
+        <script src="//yui.yahooapis.com/3.3.0/build/yui/yui-min.js"></script>
 
-            <!-- scripts concatenated and minified via ant build script-->
-            <script src="app.<%= app_version %>/<%= app_name %>/<%= app_name %>.js"></script>
-            <!-- end concatenated and minified scripts-->
+        <!-- scripts concatenated and minified via ant build script-->
+        <script src="app.<%= app_version %>/<%= app_name %>/<%= app_name %>.js"></script>
+        <!-- end concatenated and minified scripts-->
 
 
 
-            <!-- asynchronous google analytics -->
-            <script type="text/javascript">
-                var _gaq = _gaq || [];
-                _gaq.push(['_setAccount', '<%= analyticssiteid %>']);
-                _gaq.push(['_trackPageview']);
-                (function() {
-                    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-                })();
-            </script>
+        <!-- asynchronous google analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '<%= analyticssiteid %>']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
 
-        </body>
-        </html>
+    </body>
+</html>
