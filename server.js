@@ -6,10 +6,26 @@ var settings = {
 
 //setup Dependencies
 require(__dirname + "/lib/setup").ext( __dirname + "/lib").ext( __dirname + "/lib/express/support");
-var connect = require('connect')
+var conf = require('node-config')
+, connect = require('connect')
 , express = require('express')
-, sys = require('sys')
-, port = 80;
+, sys = require('sys');
+
+conf.initConfig(
+    function(err) {
+        if(err) {
+            sys.log('Unable to init the config: ' + err); 
+            return;
+        }
+
+        // Config loaded, can do those things now:
+        var port = conf.port;
+        
+        server.listen(port);
+        console.log('Listening on port:' + port );
+    }
+);
+
 
 //Setup Express
 var server = express.createServer(
@@ -65,7 +81,7 @@ server.error(function(err, req, res, next){
         });
     }
 });
-server.listen(port);
+//server.listen(port);
 
 
 ///////////////////////////////////////////
@@ -120,4 +136,4 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-console.log('Listening on port:' + port );
+
