@@ -9,7 +9,8 @@ require(__dirname + "/lib/setup").ext( __dirname + "/lib").ext( __dirname + "/li
 var conf = require('node-config')
 , connect = require('connect')
 , express = require('express')
-, sys = require('sys');
+, sys = require('sys')
+, port = 80;
 
 conf.initConfig(
     function(err) {
@@ -20,9 +21,7 @@ conf.initConfig(
 
         // Config loaded, can do those things now:
         var port = conf.port;
-        
-        server.listen(port);
-        console.log('Listening on port:' + port );
+
     }
 );
 
@@ -136,4 +135,5 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-
+server.listen(port);
+console.log('Listening on port:' + port );
