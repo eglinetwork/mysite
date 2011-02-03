@@ -11,20 +11,6 @@ var connect = require('connect')
 , sys = require('sys')
 , port = 80;
 
-//conf.initConfig(
-//    function(err) {
-//        if(err) {
-//            sys.log('Unable to init the config: ' + err); 
-//            return;
-//        }
-//
-//        // Config loaded, can do those things now:
-//        var port = conf.port;
-//
-//    }
-//);
-
-
 //Setup Express
 var server = express.createServer(
     express.logger(),
@@ -79,7 +65,7 @@ server.error(function(err, req, res, next){
         });
     }
 });
-//server.listen(port);
+server.listen(port);
 
 
 ///////////////////////////////////////////
@@ -134,5 +120,4 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-server.listen(port);
 console.log('Listening on port:' + port );
