@@ -83,7 +83,6 @@ server.error(function(err, req, res, next){
         });
     }
 });
-//server.listen(port);
 
 
 ///////////////////////////////////////////
@@ -138,4 +137,5 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-
+//server.listen(port);
+//console.log('Listening on port:' + port );
