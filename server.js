@@ -11,6 +11,22 @@ var connect = require('connect')
 , sys = require('sys')
 , port = 80;
 
+var conf = require('node-config');
+
+conf.initConfig(
+    function(err) {
+        if(err) {
+            sys.log('Unable to init the config: ' + err); 
+            return;
+        }
+
+        // Config loaded, can do those things now:
+
+        console.log(conf.name);
+    }
+);
+
+
 //Setup Express
 var server = express.createServer(
     express.logger(),
