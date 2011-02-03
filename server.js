@@ -6,24 +6,23 @@ var settings = {
 
 //setup Dependencies
 require(__dirname + "/lib/setup").ext( __dirname + "/lib").ext( __dirname + "/lib/express/support");
-var conf = require('node-config')
-, connect = require('connect')
+var connect = require('connect')
 , express = require('express')
 , sys = require('sys')
 , port = 80;
 
-conf.initConfig(
-    function(err) {
-        if(err) {
-            sys.log('Unable to init the config: ' + err); 
-            return;
-        }
-
-        // Config loaded, can do those things now:
-        var port = conf.port;
-
-    }
-);
+//conf.initConfig(
+//    function(err) {
+//        if(err) {
+//            sys.log('Unable to init the config: ' + err); 
+//            return;
+//        }
+//
+//        // Config loaded, can do those things now:
+//        var port = conf.port;
+//
+//    }
+//);
 
 
 //Setup Express
