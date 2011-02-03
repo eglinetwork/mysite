@@ -21,8 +21,10 @@ conf.initConfig(
         }
 
         // Config loaded, can do those things now:
+        var port = conf.port;
 
-        console.log(conf.name);
+        server.listen(port);
+        console.log('Listening on port:' + port );
     }
 );
 
@@ -81,7 +83,7 @@ server.error(function(err, req, res, next){
         });
     }
 });
-server.listen(port);
+//server.listen(port);
 
 
 ///////////////////////////////////////////
@@ -136,4 +138,4 @@ function NotFound(msg){
     Error.captureStackTrace(this, arguments.callee);
 }
 
-console.log('Listening on port:' + port );
+
