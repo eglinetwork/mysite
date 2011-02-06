@@ -1,7 +1,7 @@
 /**
  * @author egli
  */
-YUI().use('node','yql','tabview','anim','overlay','intl','datatype-date', function(Y) {
+YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
     var cards,
     cardNodes,
