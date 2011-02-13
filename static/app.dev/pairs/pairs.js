@@ -16,7 +16,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     gameOverWidget,
     tabview;
 
-
+    // On domready init the application
     function init() {
 
         tabview = new Y.TabView({
