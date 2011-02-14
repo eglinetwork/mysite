@@ -41,8 +41,6 @@ conf.initConfig(
             if (err instanceof NotFound) {
                 res.render('404.ejs', {
                     locals: { 
-                        header: '' ,
-                        footer: '' ,
                         title : '404 - Not Found' ,
                         app_version : conf.app_version ,
                         app_name : 'error' ,
@@ -55,8 +53,6 @@ conf.initConfig(
             } else {
                 res.render('500.ejs', {
                     locals: { 
-                        header: '',
-                        footer: '',
                         title : '500 - The Server Encountered an Error',
                         app_version : conf.app_version,
                         app_name : 'error',
@@ -80,8 +76,6 @@ conf.initConfig(
         server.get('/', function(req,res){
             res.render('index.ejs', {
                 locals : { 
-                    header: '',
-                    footer: '',
                     title : 'My Personal Website | eglinetwork',
                     app_version : conf.app_version,
                     app_name : 'index',
@@ -95,8 +89,6 @@ conf.initConfig(
         server.get('/pairs', function(req,res){
             res.render('pairs.ejs', {
                 locals : { 
-                    header: '',
-                    footer: '',
                     title : 'Photo Pairs',
                     app_version : conf.app_version,
                     app_name : 'pairs',
