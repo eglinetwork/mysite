@@ -92,7 +92,7 @@ conf.initConfig(
                     title : 'Photo Pairs',
                     app_version : conf.app_version,
                     app_name : 'pairs',
-                    description: 'Play Pairs with beautiful photos. Pairs is also known as Concentration, Memory, Pelmanism, Shinkei-suijaku or Pexeso. All photos are loaded from Flickr. Change the photo theme to get individual variants of card sets.',
+                    description: 'Play pairs with beautiful photos. Select your personal photo theme to get individual variants of card sets. Play an easy game with 8 pairs or play it difficult with 20 pairs. Challenge yourself or play with up to four players. Pairs is also known as Memory, Pelmanism, Shinkei-suijaku, Pexeso or simply Concentration',
                     author: 'Marco Egli',
                     analyticssiteid: conf.analyticssiteid 
                 }
