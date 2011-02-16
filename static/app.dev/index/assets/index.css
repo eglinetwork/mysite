@@ -133,3 +133,12 @@ a:hover {
     font-weight: bold;
     font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
 }
+
+#tabAbout article {
+    font-size: 116%;
+    font-family: AurulentSansRegular,Verdana,Arial,Helvetica,sans-serif;
+}
+
+#tabAbout article li {
+    padding-bottom: 0.2em;
+}
