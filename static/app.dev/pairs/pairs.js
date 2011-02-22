@@ -25,11 +25,12 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         tabview.on('selectionChange', function(e) {
 
-            // On selection of tab table
+            // On blur of tab settings
             if (e.prevVal && e.prevVal.get('index') === 0){
                 startNewGame();
             }
 
+            // On selection of tab table
             if (e.newVal && e.newVal.get('index') === 1){
                 Y.one('#applicationTitle').setStyle("display","none");
                 Y.one('#divGameInfo').setStyle("display","block");
@@ -56,10 +57,9 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         Y.one('#buttonPlayNow').on('click',function(){
             tabview.selectChild(1);
         })
-                
-        // Some fallbacks
-                
+                         
         // If placeholders are not supported
+        // write placeholder values as default values
         if(!Modernizr.input['placeholder']){
             Y.all('#tabSettings form input').each(function(node,nodeIndex,nodeList){
                 if (node.getAttribute('placeholder') != ""){
@@ -83,7 +83,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
     var loadSettings = function(){
         cards = [];
-        photosetLength = parseInt(document.getElementById('inputPairsLength').value,10);
+        photosetLength = parseInt(Y.one('#inputPairsLength').get('value'),10);
         photoset = {};
         cardsLength = photosetLength * 2;
         themeQuery = Y.one('#inputTheme').get('value');
@@ -238,11 +238,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 var imageSizes = r.query.results.size,
                 urlParts = [], photoId, cardIndex, cardAssigns;
 
-                //Y.log(imageSizes.length);
-			
                 for(var i=0,len=imageSizes.length; i<len; i++){
-
-                    //Y.log(imageSizes[i].url);
 
                     urlParts = imageSizes[i].url.split("/");
                     photoId = urlParts[5];
@@ -309,14 +305,13 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         /* Render it as a child of the #tabTable element */
         gameStatsWidget.render('#tabTable');
         gameStatsWidget.hide();
-        Y.on("resize", function(){
-            alignGameStatsWidget();
-        }, window);
+        Y.on("resize", alignGameStatsWidget, window);
     }
 
     var alignGameStatsWidget = function(){
-        gameStatsWidget.set('height',Y.one('#cardTable').get('offsetHeight'));
-        gameStatsWidget.set('width',Y.one('#cardTable').get('offsetWidth')/3);
+        var nodeCardTable = Y.one('#cardTable');
+        gameStatsWidget.set('height',nodeCardTable.get('offsetHeight'));
+        gameStatsWidget.set('width',nodeCardTable.get('offsetWidth')/3);
         gameStatsWidget.set("align", {
             node:"#tabTable",
             points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
@@ -433,8 +428,10 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             zIndex:2
         });
 
-        /* Render it as a child of the #tabSettings element */
+        // Render it as a child of the #tabSettings element
         aboutWidget.render('#tabSettings');
+
+        // Using Modernizr to detect the used HTML5 and CSS3 features
 
         // HTML5 features
         if(!Modernizr.inputtypes['number']){
@@ -489,9 +486,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         }
 
         alignAboutWidget();
-        Y.on("resize", function(){
-            alignAboutWidget();
-        }, window);
+        Y.on("resize", alignAboutWidget, window);
         tabview.on('selectionChange', function(e) {
             if (e.newVal && e.newVal.get('index') === 0){
                 setTimeout ( alignAboutWidget, 1 );
