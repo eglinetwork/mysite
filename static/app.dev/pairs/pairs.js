@@ -227,11 +227,13 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
     var createPhotoset = function(){
         var nodePhotoList = Y.one('#tabPhotos ul'), 
+        nodeCardTable = Y.one('#cardTable'),
         photoFlickrUrl,
         loadedPhotos = 0,
         yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+themeQuery+'" and license="3")';
 
         setGameInfo('Loading Photos ...');
+        nodeCardTable.removeClass('photosLoaded');
 
         Y.YQL(yqlString, function(r) {
             if(r.query.results){
@@ -276,6 +278,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 if (loadedPhotos == photosetLength){
                     game.status = 1;
                     setGameInfo(players[turn.currentPlayer].name + '. Start the game.');
+                    nodeCardTable.addClass('photosLoaded');
                 } else {
                     game.status = 101;
                     setGameInfo('Not enough photos for theme \''+themeQuery+'\' found. Change the settings.');

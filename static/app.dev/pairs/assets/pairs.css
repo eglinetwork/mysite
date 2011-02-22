@@ -211,6 +211,10 @@ input:-moz-placeholder {
     margin: 5px 0 5px 5px;
 }
 
+.photosLoaded .card {
+    cursor: pointer;
+}
+
 .card {
     display: inline-block;
     border: 1px solid;
