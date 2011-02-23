@@ -13,7 +13,7 @@ conf.initConfig(
             return;
         }
 
-        // Config loaded, can do those things now:
+        // Config loaded, can do those things now
 
         //Setup Express
         var server = express.createServer(
@@ -42,11 +42,13 @@ conf.initConfig(
                 res.render('404.ejs', {
                     locals: { 
                         title : '404 - Not Found' ,
-                        app_version : conf.app_version ,
+                        app_version : conf.app.version ,
                         app_name : 'error' ,
                         description: '404 - Not Found' ,
                         author: '' ,
-                        analyticssiteid: conf.analyticssiteid 
+                        analyticssiteid: conf.analyticssiteid,
+                        jslib_yui_version: conf.jslib.yui.version,
+                        jslib_modernizr_version: conf.jslib.modernizr.version
                     },
                     status: 404
                 });
@@ -54,11 +56,13 @@ conf.initConfig(
                 res.render('500.ejs', {
                     locals: { 
                         title : '500 - The Server Encountered an Error',
-                        app_version : conf.app_version,
+                        app_version : conf.app.version,
                         app_name : 'error',
                         description: '500 - The Server Encountered an Error',
                         author: '',
                         analyticssiteid: conf.analyticssiteid,
+                        jslib_yui_version: conf.jslib.yui.version,
+                        jslib_modernizr_version: conf.jslib.modernizr.version,
                         error: err 
                     },
                     status: 500
@@ -77,11 +81,13 @@ conf.initConfig(
             res.render('index.ejs', {
                 locals : { 
                     title : 'My Personal Website | eglinetwork',
-                    app_version : conf.app_version,
+                    app_version : conf.app.version,
                     app_name : 'index',
                     description: 'This is my personal website. Here can you find a few things about me and some of my projects.',
                     author: 'Marco Egli',
-                    analyticssiteid: conf.analyticssiteid 
+                    analyticssiteid: conf.analyticssiteid,
+                    jslib_yui_version: conf.jslib.yui.version,
+                    jslib_modernizr_version: conf.jslib.modernizr.version
                 }
             });
         });
@@ -90,11 +96,13 @@ conf.initConfig(
             res.render('pairs.ejs', {
                 locals : { 
                     title : 'Photo Pairs',
-                    app_version : conf.app_version,
+                    app_version : conf.app.version,
                     app_name : 'pairs',
                     description: 'Play pairs with beautiful photos. Select your personal photo theme to get individual variants of card sets. Play an easy game with 8 pairs or play it difficult with 20 pairs. Challenge yourself or play with up to four players. Pairs is also known as Memory, Pelmanism, Shinkei-suijaku, Pexeso or simply Concentration',
                     author: 'Marco Egli',
-                    analyticssiteid: conf.analyticssiteid 
+                    analyticssiteid: conf.analyticssiteid,
+                    jslib_yui_version: conf.jslib.yui.version,
+                    jslib_modernizr_version: conf.jslib.modernizr.version 
                 }
             });
         });
