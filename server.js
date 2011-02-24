@@ -32,7 +32,7 @@ conf.initConfig(
         server.configure(function(){
             server.set('views', __dirname + '/views');
             server.use(connect.bodyDecoder());
-            server.use(connect.staticProvider(__dirname + '/static'));
+            server.use(connect.staticProvider({ root: __dirname + '/static', cache: true, maxAge: 10368000000 }));
             server.use(server.router);
         });
 
