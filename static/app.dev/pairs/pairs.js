@@ -49,14 +49,14 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             } else {
                 showGameStatsWidget();
             }
-        })
+        });
 
         createAboutWidget();
         createGameOverWidget();
 
         Y.one('#buttonPlayNow').on('click',function(){
             tabview.selectChild(1);
-        })
+        });
                          
         // If placeholders are not supported
         // write placeholder values as default values
@@ -65,7 +65,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 if (node.getAttribute('placeholder') != ""){
                     node.set('value',node.getAttribute('placeholder'));
                 }
-            })
+            });
         }
                 
                 
@@ -79,7 +79,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         loadSettings();
         createCards();
         createPhotoset();
-    }
+    };
 
     var loadSettings = function(){
         cards = [];
@@ -100,16 +100,16 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                     name : node.get('value'),
                     wonPairs : 0,
                     usedTime : 0
-                }
+                };
             }
-        })
+        });
         if (playersLength == 0){
             playersLength = 1;
             players[playersLength] = {
                 name : Y.one('#fieldsetPlayersNames input').getAttribute('placeholder'),
                 wonPairs : 0,
                 usedTime : 0
-            }
+            };
         }
 
         game = {
@@ -128,8 +128,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             endDate: null
         };
 
-
-    }
+    };
 
     var createCards = function(){
         var cardsInRow,
@@ -223,7 +222,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         Y.all('#cardTable .card').on('click', onClickCard);
         cardNodes = Y.all('#cardTable .card');
 
-    }
+    };
 
     var createPhotoset = function(){
         var nodePhotoList = Y.one('#tabPhotos ul'), 
@@ -309,7 +308,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         gameStatsWidget.render('#tabTable');
         gameStatsWidget.hide();
         Y.on("resize", alignGameStatsWidget, window);
-    }
+    };
 
     var alignGameStatsWidget = function(){
         var nodeCardTable = Y.one('#cardTable');
@@ -319,16 +318,16 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             node:"#tabTable",
             points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
         });
-    }
+    };
 
     var showGameStatsWidget = function(){
         alignGameStatsWidget();
         gameStatsWidget.show();
-    }
+    };
 
     var hideGameStatsWidget = function(){
         gameStatsWidget.hide();
-    }
+    };
 
     var updateGameStatsWidget = function(){
         var bodyContent = '',
@@ -397,7 +396,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         gameStatsWidget.set('bodyContent',bodyContent);
 
-    }
+    };
 
     var createGameOverWidget = function(){
         /* Create Overlay from script */
@@ -412,14 +411,14 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         gameOverWidget.on('visibleChange',function(){
             gameOverWidget.set('centered','#cardTable');
-        })
+        });
 
         Y.one('#buttonPlayAgain').on('click',function(){
             startNewGame();
-        })
+        });
         Y.one('#buttonShowPhotos').on('click',function(){
             tabview.selectChild(2);
-        })
+        });
     }
 
     var createAboutWidget = function(){
@@ -485,8 +484,8 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 node:"#tabSettings",
                 points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
             });
-            aboutWidget.set('fillHeight','WidgetStdMod.BODY')
-        }
+            aboutWidget.set('fillHeight','WidgetStdMod.BODY');
+        };
 
         alignAboutWidget();
         Y.on("resize", alignAboutWidget, window);
@@ -494,8 +493,8 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             if (e.newVal && e.newVal.get('index') === 0){
                 setTimeout ( alignAboutWidget, 1 );
             }
-        })
-    }
+        });
+    };
 
     var flipCard = function(cardNode){
 
@@ -602,7 +601,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         }
 
         turn.flippedCards = [];
-    }
+    };
 
     var setGameInfo = function(text){
         var nodeGameInfo = Y.one('#divGameInfo'),
@@ -627,6 +626,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         });
 
         updateGameStatsWidget();
-    }
+    };
 
 });
