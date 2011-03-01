@@ -58,15 +58,15 @@ body { margin: auto; width: 980px; }
 /* Title styles */
 
 h1 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 h2 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 h3 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 a {
@@ -102,7 +102,7 @@ a:hover {
 
 .yui3-tabview-list {
     margin: 0.5em 0;
-    font-family: AurulentSansRegular,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansRegular,Sans-Serif;
 }
 
 .yui3-tabview-list .yui3-tab a {
@@ -135,7 +135,7 @@ fieldset {
 
 label {
     display: block;
-    font-family: AurulentSansBold, Verdana, Arial, Helvetica, sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
     line-height: 1.4;
     font-size: 108%;
     color: #0078A5;
@@ -376,7 +376,7 @@ input:-moz-placeholder {
 
 #tabPhotos li a {
     padding: 0 2em;
-    font-family: AurulentSansBold, Verdana, Arial, Helvetica, sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
     font-size: 123.1%;
     color: #666;
 }

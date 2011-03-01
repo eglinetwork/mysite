@@ -32,15 +32,15 @@ body { margin: auto; width: 640px; }
 /* Title styles */
 
 h1 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 h2 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 h3 {
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 a {
@@ -74,7 +74,7 @@ a:hover {
 
 .yui3-tabview-list {
     margin: 0.5em 0;
-    font-family: AurulentSansRegular,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansRegular,Sans-Serif;
 }
 
 .yui3-tabview-list .yui3-tab a {
@@ -97,7 +97,7 @@ a:hover {
     text-align: center;
     text-decoration: none;
     font-size: 116%;
-    font-family: AurulentSansRegular,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansRegular,Sans-Serif;
     margin: 1em 0;
     padding: .5em 2em .55em;
     text-shadow: 0 1px 1px rgba(0,0,0,0.3);
@@ -131,12 +131,12 @@ a:hover {
 .blue a {
     color: #FFFFFF;
     font-weight: bold;
-    font-family: AurulentSansBold,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansBold,Sans-Serif;
 }
 
 #tabAbout article {
     font-size: 116%;
-    font-family: AurulentSansRegular,Verdana,Arial,Helvetica,sans-serif;
+    font-family: AurulentSansRegular,Sans-Serif;
 }
 
 #tabAbout article li {
