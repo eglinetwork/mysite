@@ -92,6 +92,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         var playersLength = 0;
         players = [];
+        // Read the players names from input fields
         Y.all('#fieldsetPlayersNames input').each(function(node,nodeIndex,nodeList){
             if (node.get('value') != ""){
                 playersLength += 1;
@@ -102,6 +103,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 };
             }
         });
+        // If no player name defined
         if (playersLength == 0){
             playersLength = 1;
             players[playersLength] = {
@@ -122,7 +124,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             endDate : null,
             status : 0
         };
-        /* game status: 0: init, 1: photos loaded and ready to play, 2: game started, 9: game over, >99; game error */
+        // game status: 0: init, 1: photos loaded and ready to play, 2: game started, 9: game over, >99; game error
 
         // Set the initial turn status
         turn = {
@@ -275,7 +277,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 }
                 //Y.log(photoset);
 
-                if (loadedPhotos == photosetLength){
+                if (loadedPhotos === photosetLength){
                     // Photoset is successfully loaded and complete
                     game.status = 1;
                     setGameInfo(players[turn.currentPlayer].name + '. Start the game.');
@@ -511,7 +513,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             cardNode.one('.back').hide()
             // Add faceup class
             cardNode.addClass("faceup");
-
         } else {
             card.faceDown = true;
             // Hide the photo
@@ -526,7 +527,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     var hideCard = function(cardNode){
         // Hide the photo
         cardNode.setStyle("visibility","hidden");
-
     };
 
 
