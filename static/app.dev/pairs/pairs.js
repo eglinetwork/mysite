@@ -1,14 +1,12 @@
 /**
  * @author egli
  */
+
 YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
     var cards,
-    cardNodes,
-    cardsLength,
     photoset,
     photosetLength,
-    themeQuery,
     game,
     turn,
     players,
@@ -17,7 +15,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     tabview;
 
     // On domready init the application
-    function init() {
+    var init = function() {
 
         tabview = new Y.TabView({
             srcNode: '#tabview'
@@ -25,12 +23,12 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         tabview.on('selectionChange', function(e) {
 
-            // On blur of tab settings
+            // Start a new game on blur of tab settings
             if (e.prevVal && e.prevVal.get('index') === 0){
                 startNewGame();
             }
 
-            // On selection of tab table
+            // Set the game info title on selection of tab table
             if (e.newVal && e.newVal.get('index') === 1){
                 Y.one('#applicationTitle').setStyle("display","none");
                 Y.one('#divGameInfo').setStyle("display","block");
@@ -42,19 +40,13 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         });
         tabview.render();
 
+        // Create the widgets
         createGameStatsWidget();
-        Y.one('#divGameInfo .button').on('click',function(){
-            if (gameStatsWidget.get('visible')){
-                hideGameStatsWidget();
-            } else {
-                showGameStatsWidget();
-            }
-        });
-
         createAboutWidget();
         createGameOverWidget();
 
         Y.one('#buttonPlayNow').on('click',function(){
+            // Selection the table tab does start a new game
             tabview.selectChild(1);
         });
                          
@@ -66,10 +58,8 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                     node.set('value',node.getAttribute('placeholder'));
                 }
             });
-        }
-                
-                
-    }
+        }          
+    };
     Y.on("domready", init);
 
     // private functions
@@ -82,10 +72,19 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     };
 
     var loadSettings = function(){
+        var themeQuery;
         cards = [];
+        
+        // Read the length of the photoset from DOM and do some validation
         photosetLength = parseInt(Y.one('#inputPairsLength').get('value'),10);
-        photoset = {};
-        cardsLength = photosetLength * 2;
+        photosetLength=Math.round(photosetLength);
+        if (photosetLength < 8 || photosetLength > 20){
+            // It the value is invalid, set it to a default
+            photosetLength = 12;
+        }
+        Y.one('#inputPairsLength').set('value',photosetLength);
+        
+        // Read the theme of the game from DOM
         themeQuery = Y.one('#inputTheme').get('value');
         if (themeQuery == ""){
             themeQuery = Y.one('#inputTheme').getAttribute('placeholder');
@@ -112,14 +111,20 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             };
         }
 
+        // Init the photoset
+        photoset = {};
+
+        // Set the initial game status
         game = {
             players : playersLength,
+            themeQuery : themeQuery,
             startDate : null,
             endDate : null,
             status : 0
         };
-        /* game status: 0: init, 1: photos loaded and ready to play, 2: game started, 9: game over */
+        /* game status: 0: init, 1: photos loaded and ready to play, 2: game started, 9: game over, >99; game error */
 
+        // Set the initial turn status
         turn = {
             currentPlayer : 1,
             flippedCards: [],
@@ -133,7 +138,8 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     var createCards = function(){
         var cardsInRow,
         nodeCardTable = Y.one('#cardTable'),
-        nodeCardRows, cardIndex = 0;
+        nodeCardRows, cardIndex = 0,
+        cardsLength = photosetLength * 2;
 
         if(cardsLength<=32){
             cardsInRow = Math.ceil(cardsLength/4);
@@ -172,14 +178,14 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             card = cards[cardIndex];
             
             var faceDownAllCards = function(){
-                cardNodes.each(function(n){
+                Y.all('#cardTable .card').each(function(n){
                     if(cards[parseInt(n.getAttribute('data-cardindex'),10)].faceDown == false){
                         flipCard(n);
                     }
                 });
             }
 
-            if(game.status > 0){
+            if(game.status > 0 && game.status < 10){
                 // Append the photo
                 if(card.status === "initialized"){
                     photoId = card.photo;
@@ -218,18 +224,16 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                 }
             }
         };
-
         Y.all('#cardTable .card').on('click', onClickCard);
-        cardNodes = Y.all('#cardTable .card');
-
     };
 
     var createPhotoset = function(){
         var nodePhotoList = Y.one('#tabPhotos ul'), 
         nodeCardTable = Y.one('#cardTable'),
+        cardsLength = photosetLength * 2,
         photoFlickrUrl,
         loadedPhotos = 0,
-        yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+themeQuery+'" and license="3")';
+        yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+game.themeQuery+'" and license="3")';
 
         setGameInfo('Loading Photos ...');
         nodeCardTable.removeClass('photosLoaded');
@@ -259,7 +263,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                                 cardAssigns ++;
                             }
                         }
-
                     }
 
                     // Add the size to the photo in the set
@@ -269,25 +272,23 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                         width : imageSizes[i].width,
                         url : imageSizes[i].url
                     };
-
                 }
-
                 //Y.log(photoset);
 
                 if (loadedPhotos == photosetLength){
+                    // Photoset is successfully loaded and complete
                     game.status = 1;
                     setGameInfo(players[turn.currentPlayer].name + '. Start the game.');
                     nodeCardTable.addClass('photosLoaded');
                 } else {
                     game.status = 101;
-                    setGameInfo('Not enough photos for theme \''+themeQuery+'\' found. Change the settings.');
+                    setGameInfo('Not enough photos for theme \''+game.themeQuery+'\' found. Change the settings.');
                 }
             } else {
                 game.status = 100;
-                setGameInfo('No photos for theme \''+themeQuery+'\' found. Change the settings.');
+                setGameInfo('No photos for theme \''+game.themeQuery+'\' found. Change the settings.');
             }
 		
-
             // Create the photo list
             nodePhotoList.empty();
             for (photoId in photoset) {
@@ -299,15 +300,24 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
 
     var createGameStatsWidget = function(){
-        /* Create Overlay from script, this time. With no footer */
         gameStatsWidget = new Y.Overlay({
             zIndex:2
         });
 
-        /* Render it as a child of the #tabTable element */
+        // Render it as a child of the #tabTable element
         gameStatsWidget.render('#tabTable');
         gameStatsWidget.hide();
+        
         Y.on("resize", alignGameStatsWidget, window);
+        
+        Y.one('#divGameInfo .button').on('click',function(){
+            if (gameStatsWidget.get('visible')){
+                gameStatsWidget.hide();
+            } else {
+                alignGameStatsWidget();
+                gameStatsWidget.show();
+            }
+        });
     };
 
     var alignGameStatsWidget = function(){
@@ -320,14 +330,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         });
     };
 
-    var showGameStatsWidget = function(){
-        alignGameStatsWidget();
-        gameStatsWidget.show();
-    };
-
-    var hideGameStatsWidget = function(){
-        gameStatsWidget.hide();
-    };
 
     var updateGameStatsWidget = function(){
         var bodyContent = '',
@@ -374,7 +376,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         gameStatsWidget.set('bodyContent','');
 
         bodyContent += '<h3>Game</h3>';
-        bodyContent += addDataRow('Photo Theme',themeQuery);
+        bodyContent += addDataRow('Photo Theme',game.themeQuery);
         bodyContent += addDataRow('Status',getTextGameStatus(game.status));
         bodyContent += addDataRow('Start Time',Y.DataType.Date.format(game.startDate, {
             format:"%T"
@@ -497,7 +499,6 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     };
 
     var flipCard = function(cardNode){
-
         var card, cardIndex;
         cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
         card = cards[cardIndex];
@@ -531,14 +532,13 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
     var wonPair = function(flippedCards){
         var cardIndex;
-        cardNodes.each(function(n){
+        Y.all('#cardTable .card').each(function(n){
             cardIndex = parseInt(n.getAttribute('data-cardindex'),10);
             if(cardIndex == flippedCards[0] || cardIndex == flippedCards[1]){
                 hideCard(n);
             }
         })
     };
-
 
     var startTurn = function(){
         if (turn.counter === 0){
@@ -567,7 +567,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
             for (var i=1,len=players.length; i<len; i++){
                 totalWonPairs += players[i].wonPairs;
             }
-            if(totalWonPairs == cardsLength/2){
+            if(totalWonPairs == photosetLength){
                 // End of the game
                 game.status = 9;
                 game.endDate = new Date();
