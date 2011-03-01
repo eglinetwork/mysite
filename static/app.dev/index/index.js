@@ -12,7 +12,6 @@ YUI().use('node','tabview', function(Y) {
         });
         tabview.render();
         
-		
     }
     Y.on("domready", init);
  
