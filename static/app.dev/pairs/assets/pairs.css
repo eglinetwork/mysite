@@ -25,34 +25,42 @@ Styles for the photo pairs game
 
 body { margin: auto; width: 980px; }
 .card {	width: 110px; height: 83px; }
+.card .face { line-height: 72px; } 
 
 @media screen and (max-width: 619px) {
     body { margin: auto; width: 460px; }
     .card {	width: 46px; height: 34px; }
+    .card .face { line-height: 28px; }       
 }
 @media screen and (min-width: 620px) and (max-width: 779px) {
     body { margin: auto; width: 600px; }
     .card {	width: 63px; height: 47px; }
+    .card .face { line-height: 40px; }   
 }
 @media screen and (min-width: 780px) and (max-width: 999px) {
     body { margin: auto; width: 760px; }
     .card {	width: 83px; height: 62px; }
+    .card .face { line-height: 54px; }   
 }
 @media screen and (min-width: 1000px) and (max-width: 1259px) {
     body { margin: auto; width: 980px; }
     .card {	width: 110px; height: 83px; }
+    .card .face { line-height: 72px; }         
 }
 @media screen and (min-width: 1260px) and (max-width: 1579px) {
     body { margin: auto; width: 1240px; }
     .card {	width: 143px; height: 107px; }
+    .card .face { line-height: 93px; }      
 }
 @media screen and (min-width: 1580px) and (max-width: 1899px) {
     body { margin: auto; width: 1560px; }
     .card {	width: 183px; height: 137px; }
+    .card .face { line-height: 121px; }    
 }
 @media screen and (min-width: 1900px) {
     body { margin: auto; width: 1880px;}
     .card {	width: 223px; height: 167px; }
+    .card .face { line-height: 150px; }
 }
 
 /* Title styles */
@@ -265,6 +273,15 @@ input:-moz-placeholder {
     height: 90%;
     margin: 3%;
 }
+
+.faceup .back {
+    display: none;
+}
+
+.faceup .face {
+    display: block;
+}
+
 
 /* image styles */
 
