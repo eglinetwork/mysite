@@ -3,7 +3,7 @@ MYSITE
 
 ### My Personal Website | eglinetwork 
 
-http://eglinetwork.ch/
+[eglinetwork.ch/](http://eglinetwork.ch/)
 
 * A list of my personal web projects
 * Some things about me
