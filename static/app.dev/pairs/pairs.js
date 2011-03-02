@@ -62,7 +62,11 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     };
     Y.on("domready", init);
 
-    // private functions
+
+    /*
+     * Functions to start a new game
+     */
+
 
     var startNewGame = function(){
         gameOverWidget.hide();
@@ -217,7 +221,7 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
                                 faceDownAllCards();
                                 endTurn();
                             }
-                        }, 2000);
+                        }, 1500);
 
                     }
                 } else {
@@ -301,204 +305,10 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
     };
 
 
-    var createGameStatsWidget = function(){
-        gameStatsWidget = new Y.Overlay({
-            zIndex:2
-        });
+    /*
+     * Functions to play the game
+     */
 
-        // Render it as a child of the #tabTable element
-        gameStatsWidget.render('#tabTable');
-        gameStatsWidget.hide();
-        
-        Y.on("resize", alignGameStatsWidget, window);
-        
-        Y.one('#divGameInfo .button').on('click',function(){
-            if (gameStatsWidget.get('visible')){
-                gameStatsWidget.hide();
-            } else {
-                alignGameStatsWidget();
-                gameStatsWidget.show();
-            }
-        });
-    };
-
-    var alignGameStatsWidget = function(){
-        var nodeCardTable = Y.one('#cardTable');
-        gameStatsWidget.set('height',nodeCardTable.get('offsetHeight'));
-        gameStatsWidget.set('width',nodeCardTable.get('offsetWidth')/3);
-        gameStatsWidget.set("align", {
-            node:"#tabTable",
-            points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
-        });
-    };
-
-
-    var updateGameStatsWidget = function(){
-        var bodyContent = '',
-        addDataRow = function(title,value){
-            var html = '';
-            html += '<div class="yui3-g">';
-            html += '	<div class="yui3-u-1-2"><p>'+title+'</p></div>';
-            html += '	<div class="yui3-u-1-2"><p>'+value+'</p></div>';
-            html += '</div>';
-            return html;
-        },
-        formatTime = function(ms){
-            var totalSeconds = Math.ceil(ms/1000),
-            hours = Math.floor(totalSeconds / 3600),
-            minutes = Math.floor((totalSeconds-hours*3600)/ 60),
-            seconds = totalSeconds - hours*3600 - minutes*60;
-
-            if (hours < 10){
-                hours = '0' + hours;
-            }
-            if (minutes < 10){
-                minutes = '0' + minutes;
-            }
-            if (seconds < 10){
-                seconds = '0' + seconds;
-            }
-            return hours +':'+ minutes +':'+ seconds;
-        },
-        getTextGameStatus = function(status){
-            var textStatus = '';
-            if(status == 0){
-                return 'Loading photos from Flickr';
-            } else if (status == 1){
-                return 'Ready to play';
-            } else if (status == 2){
-                return 'Game started';
-            } else if (status == 9){
-                return 'Game over';
-            } else {
-                return 'Error '+status+'! Want to <a href="javascript:location.reload()">restart</a>?';
-            }
-        };
-
-        gameStatsWidget.set('bodyContent','');
-
-        bodyContent += '<h3>Game</h3>';
-        bodyContent += addDataRow('Photo Theme',game.themeQuery);
-        bodyContent += addDataRow('Status',getTextGameStatus(game.status));
-        bodyContent += addDataRow('Start Time',Y.DataType.Date.format(game.startDate, {
-            format:"%T"
-        }));
-        if (game.endDate){
-            bodyContent += addDataRow('End Time',Y.DataType.Date.format(game.endDate, {
-                format:"%T"
-            }));
-            bodyContent += addDataRow('Total Time',formatTime(game.endDate-game.startDate));
-        }
-
-        bodyContent += addDataRow('Played Turns',turn.counter);
-
-        for (var i=1,len=players.length; i<len; i++){
-            bodyContent += '<h3>'+players[i].name+'</h3>';
-            bodyContent += addDataRow('Pairs',players[i].wonPairs);
-            bodyContent += addDataRow('Time',formatTime(players[i].usedTime));
-        }
-
-        gameStatsWidget.set('bodyContent',bodyContent);
-
-    };
-
-    var createGameOverWidget = function(){
-        /* Create Overlay from script */
-        gameOverWidget = new Y.Overlay({
-            headerContent:'<h3>Game Over</h3>',
-            bodyContent:'<span id="buttonPlayAgain" class="button blue">Play again</span> <span id="buttonShowPhotos" class="button blue">Show photos</span>',
-            zIndex:3
-        });
-
-        /* Render it as a child of the #tabTable element */
-        gameOverWidget.render('#tabTable');
-
-        gameOverWidget.on('visibleChange',function(){
-            gameOverWidget.set('centered','#cardTable');
-        });
-
-        Y.one('#buttonPlayAgain').on('click',function(){
-            startNewGame();
-        });
-        Y.one('#buttonShowPhotos').on('click',function(){
-            tabview.selectChild(2);
-        });
-    }
-
-    var createAboutWidget = function(){
-        /* Create Overlay from script */
-        var notSupportedEnrichmentsArray = [], notSupportedEnrichmentsText = '';
-        var aboutWidget = new Y.Overlay({
-            srcNode:"#divAboutWidget",
-            visible:true,
-            zIndex:2
-        });
-
-        // Render it as a child of the #tabSettings element
-        aboutWidget.render('#tabSettings');
-
-        // Using Modernizr to detect the used HTML5 and CSS3 features
-
-        // HTML5 features
-        if(!Modernizr.inputtypes['number']){
-            notSupportedEnrichmentsArray.push('number input fields');
-        }
-        if(!Modernizr.input['placeholder']){
-            notSupportedEnrichmentsArray.push('placeholders for empty input fields');
-        }
-
-        // CSS features
-        if(!Modernizr.rgba){
-            notSupportedEnrichmentsArray.push('semi transparent colors');
-        }
-        if(!Modernizr.borderradius){
-            notSupportedEnrichmentsArray.push('rounded corners');
-        }
-        if(!Modernizr.cssgradients){
-            notSupportedEnrichmentsArray.push('background color gradients');
-        }
-        if(!Modernizr.csstransforms){
-            notSupportedEnrichmentsArray.push('scale 2d transformations');
-        }
-        if(!Modernizr.csstransitions){
-            notSupportedEnrichmentsArray.push('smooth transitions');
-        }
-        if(!Modernizr.fontface){
-            notSupportedEnrichmentsArray.push('custom web fonts');
-        }
-
-
-        if(notSupportedEnrichmentsArray.length > 0){
-            for(var i=0,len=notSupportedEnrichmentsArray.length;i<len;i++){
-                notSupportedEnrichmentsText += notSupportedEnrichmentsArray[i];
-                if(i<len-1){
-                    notSupportedEnrichmentsText += ', ';
-                }
-            }
-            Y.one('#spanEnrichments').set('innerHTML', notSupportedEnrichmentsText);
-        } else {
-            Y.one('#spanBrowserSupport').set('innerHTML', '');
-        }
-		
-
-        var alignAboutWidget = function(){
-            aboutWidget.set('height',Y.one('#tabSettings').get('offsetHeight'));
-            aboutWidget.set('width',Y.one('#tabSettings').get('offsetWidth')/2);
-            aboutWidget.set("align", {
-                node:"#tabSettings",
-                points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
-            });
-            aboutWidget.set('fillHeight','WidgetStdMod.BODY');
-        };
-
-        alignAboutWidget();
-        Y.on("resize", alignAboutWidget, window);
-        tabview.on('selectionChange', function(e) {
-            if (e.newVal && e.newVal.get('index') === 0){
-                setTimeout ( alignAboutWidget, 1 );
-            }
-        });
-    };
 
     var flipCard = function(cardNode){
         var card, cardIndex;
@@ -507,25 +317,19 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
 
         if(card.faceDown){
             card.faceDown = false;
-            // Show the photo
-            cardNode.one('.face').setStyle("display","block");
-            // Hide the back
-            cardNode.one('.back').hide()
+            // Show the photo and hide the back
             // Add faceup class
             cardNode.addClass("faceup");
         } else {
             card.faceDown = true;
-            // Hide the photo
-            cardNode.one('.face').hide();
-            // Show the back
-            cardNode.one('.back').setStyle("display","block");
+            // Hide the photo and show the back
             // Remove faceup class
             cardNode.removeClass("faceup");
         }
     };
 
     var hideCard = function(cardNode){
-        // Hide the photo
+        // Hide the card
         cardNode.setStyle("visibility","hidden");
     };
 
@@ -626,6 +430,210 @@ YUI().use('node','yql','tabview','anim','overlay','datatype-date', function(Y) {
         });
 
         updateGameStatsWidget();
+    };
+    
+    
+    /*
+     * Functions to create and control the widgets
+     */
+    
+    
+    var createGameStatsWidget = function(){
+        gameStatsWidget = new Y.Overlay({
+            zIndex:2
+        });
+
+        // Render it as a child of the #tabTable element
+        gameStatsWidget.render('#tabTable');
+        gameStatsWidget.hide();
+        
+        Y.on("resize", alignGameStatsWidget, window);
+        
+        Y.one('#divGameInfo .button').on('click',function(){
+            if (gameStatsWidget.get('visible')){
+                gameStatsWidget.hide();
+            } else {
+                alignGameStatsWidget();
+                gameStatsWidget.show();
+            }
+        });
+    };
+
+    var alignGameStatsWidget = function(){
+        var nodeCardTable = Y.one('#cardTable');
+        gameStatsWidget.set('height',nodeCardTable.get('offsetHeight'));
+        gameStatsWidget.set('width',nodeCardTable.get('offsetWidth')/3);
+        gameStatsWidget.set("align", {
+            node:"#tabTable",
+            points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
+        });
+    };
+
+
+    var updateGameStatsWidget = function(){
+        var bodyContent = '',
+        addDataRow = function(title,value){
+            var html = '';
+            html += '<div class="yui3-g">';
+            html += '	<div class="yui3-u-1-2"><p>'+title+'</p></div>';
+            html += '	<div class="yui3-u-1-2"><p>'+value+'</p></div>';
+            html += '</div>';
+            return html;
+        },
+        formatTime = function(ms){
+            var totalSeconds = Math.ceil(ms/1000),
+            hours = Math.floor(totalSeconds / 3600),
+            minutes = Math.floor((totalSeconds-hours*3600)/ 60),
+            seconds = totalSeconds - hours*3600 - minutes*60;
+
+            if (hours < 10){
+                hours = '0' + hours;
+            }
+            if (minutes < 10){
+                minutes = '0' + minutes;
+            }
+            if (seconds < 10){
+                seconds = '0' + seconds;
+            }
+            return hours +':'+ minutes +':'+ seconds;
+        },
+        getTextGameStatus = function(status){
+            if(status == 0){
+                return 'Loading photos from Flickr';
+            } else if (status == 1){
+                return 'Ready to play';
+            } else if (status == 2){
+                return 'Game started';
+            } else if (status == 9){
+                return 'Game over';
+            } else {
+                return 'Error '+status+'! Want to <a href="javascript:location.reload()">restart</a>?';
+            }
+        };
+
+        gameStatsWidget.set('bodyContent','');
+
+        bodyContent += '<h3>Game</h3>';
+        bodyContent += addDataRow('Photo Theme',game.themeQuery);
+        bodyContent += addDataRow('Status',getTextGameStatus(game.status));
+        bodyContent += addDataRow('Start Time',Y.DataType.Date.format(game.startDate, {
+            format:"%T"
+        }));
+        if (game.endDate){
+            bodyContent += addDataRow('End Time',Y.DataType.Date.format(game.endDate, {
+                format:"%T"
+            }));
+            bodyContent += addDataRow('Total Time',formatTime(game.endDate-game.startDate));
+        }
+
+        bodyContent += addDataRow('Played Turns',turn.counter);
+
+        for (var i=1,len=players.length; i<len; i++){
+            bodyContent += '<h3>'+players[i].name+'</h3>';
+            bodyContent += addDataRow('Pairs',players[i].wonPairs);
+            bodyContent += addDataRow('Time',formatTime(players[i].usedTime));
+        }
+
+        gameStatsWidget.set('bodyContent',bodyContent);
+
+    };
+
+    var createGameOverWidget = function(){
+        // Create Overlay from script
+        gameOverWidget = new Y.Overlay({
+            headerContent:'<h3>Game Over</h3>',
+            bodyContent:'<span id="buttonPlayAgain" class="button blue">Play again</span> <span id="buttonShowPhotos" class="button blue">Show photos</span>',
+            zIndex:3
+        });
+
+        // Render it as a child of the #tabTable element
+        gameOverWidget.render('#tabTable');
+
+        gameOverWidget.on('visibleChange',function(){
+            gameOverWidget.set('centered','#cardTable');
+        });
+
+        Y.one('#buttonPlayAgain').on('click',function(){
+            startNewGame();
+        });
+        Y.one('#buttonShowPhotos').on('click',function(){
+            tabview.selectChild(2);
+        });
+    }
+
+    var createAboutWidget = function(){
+        // Create Overlay from script
+        var notSupportedEnrichmentsArray = [], notSupportedEnrichmentsText = '';
+        var aboutWidget = new Y.Overlay({
+            srcNode:"#divAboutWidget",
+            visible:true,
+            zIndex:2
+        });
+
+        // Render it as a child of the #tabSettings element
+        aboutWidget.render('#tabSettings');
+
+        // Using Modernizr to detect the used HTML5 and CSS3 features
+
+        // HTML5 features
+        if(!Modernizr.inputtypes['number']){
+            notSupportedEnrichmentsArray.push('number input fields');
+        }
+        if(!Modernizr.input['placeholder']){
+            notSupportedEnrichmentsArray.push('placeholders for empty input fields');
+        }
+
+        // CSS features
+        if(!Modernizr.rgba){
+            notSupportedEnrichmentsArray.push('semi transparent colors');
+        }
+        if(!Modernizr.borderradius){
+            notSupportedEnrichmentsArray.push('rounded corners');
+        }
+        if(!Modernizr.cssgradients){
+            notSupportedEnrichmentsArray.push('background color gradients');
+        }
+        if(!Modernizr.csstransforms){
+            notSupportedEnrichmentsArray.push('scale 2d transformations');
+        }
+        if(!Modernizr.csstransitions){
+            notSupportedEnrichmentsArray.push('smooth transitions');
+        }
+        if(!Modernizr.fontface){
+            notSupportedEnrichmentsArray.push('custom web fonts');
+        }
+
+
+        if(notSupportedEnrichmentsArray.length > 0){
+            for(var i=0,len=notSupportedEnrichmentsArray.length;i<len;i++){
+                notSupportedEnrichmentsText += notSupportedEnrichmentsArray[i];
+                if(i<len-1){
+                    notSupportedEnrichmentsText += ', ';
+                }
+            }
+            Y.one('#spanEnrichments').set('innerHTML', notSupportedEnrichmentsText);
+        } else {
+            Y.one('#spanBrowserSupport').set('innerHTML', '');
+        }
+		
+
+        var alignAboutWidget = function(){
+            aboutWidget.set('height',Y.one('#tabSettings').get('offsetHeight'));
+            aboutWidget.set('width',Y.one('#tabSettings').get('offsetWidth')/2);
+            aboutWidget.set("align", {
+                node:"#tabSettings",
+                points:[Y.WidgetPositionAlign.TR, Y.WidgetPositionAlign.TR]
+            });
+            aboutWidget.set('fillHeight','WidgetStdMod.BODY');
+        };
+
+        alignAboutWidget();
+        Y.on("resize", alignAboutWidget, window);
+        tabview.on('selectionChange', function(e) {
+            if (e.newVal && e.newVal.get('index') === 0){
+                setTimeout ( alignAboutWidget, 1 );
+            }
+        });
     };
 
 });
