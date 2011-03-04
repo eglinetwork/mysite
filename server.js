@@ -80,7 +80,7 @@ conf.initConfig(
         server.get('/', function(req,res){
             res.render('index.ejs', {
                 locals : { 
-                    title : 'My Personal Website | eglinetwork',
+                    title : 'eglinetwork | Marco Egli',
                     app_version : conf.app.version,
                     app_name : 'index',
                     description: 'This is my personal website. Here can you find a few things about me and some of my projects.',
