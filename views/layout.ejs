@@ -20,12 +20,17 @@
         <link rel="shortcut icon" href="app.<%= app_version %>/<%= app_name %>/favicon.ico">
         <link rel="apple-touch-icon" href="app.<%= app_version %>/<%= app_name %>/apple-touch-icon.png">
 
-        <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+        <!-- All JavaScript loaded asynchronous, except for Modernizr which enables HTML5 elements & feature detects -->
         <script src="jslib/modernizr/modernizr-<%= jslib_modernizr_version %>.min.js"></script>
 
+        <!-- Grab Yahoo CDN's YUI -->
+        <script src="//yui.yahooapis.com/<%= jslib_yui_version %>/build/yui/yui-min.js"></script>
+        <!-- Loading the application bootstrap script -->
+        <script src="app.<%= app_version %>/<%= app_name %>/<%= app_name %>.js"></script>
+        
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/combo?<%= jslib_yui_version %>/build/cssfonts/fonts-min.css&<%= jslib_yui_version %>/build/cssreset/reset-min.css&<%= jslib_yui_version %>/build/cssgrids/grids-min.css&<%= jslib_yui_version %>/build/cssbase/base-min.css">
-	<link rel="stylesheet" type="text/css" href="app.<%= app_version %>/<%= app_name %>/assets/<%= app_name %>.css">
+        <link rel="stylesheet" type="text/css" href="app.<%= app_version %>/<%= app_name %>/assets/<%= app_name %>.css">
 
     </head>
     <body>
@@ -34,15 +39,6 @@
             <%- body %>
         </div> 
         <!--! end of #container -->
-
-        <!-- Javascript at the bottom for fast page loading -->
-
-        <!-- Grab Yahoo CDN's YUI -->
-        <script src="//yui.yahooapis.com/<%= jslib_yui_version %>/build/yui/yui-min.js"></script>
-
-        <!-- scripts concatenated and minified via ant build script-->
-        <script src="app.<%= app_version %>/<%= app_name %>/<%= app_name %>.js"></script>
-        <!-- end concatenated and minified scripts-->
 
         <!-- asynchronous google analytics -->
         <script type="text/javascript">
