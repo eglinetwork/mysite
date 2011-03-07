@@ -257,7 +257,6 @@ YUI.add('pairs_game', function(Y) {
             
             // Set the initial game status
             game = {
-                // TODO: Check if players.length is 1 to much
                 players : players.length,
                 themeQuery : Y.PAIRS.settings.getThemeQuery(),
                 photosetLength : Y.PAIRS.settings.getPhotosetLength(),
@@ -277,7 +276,11 @@ YUI.add('pairs_game', function(Y) {
             };
                      
             createCards();
-            Y.PAIRS.photoset.createNew(game.themeQuery, game.photosetLength)
+            
+            Y.use('pairs_photoset', function(Y) {
+                Y.PAIRS.photoset.createNew(game.themeQuery, game.photosetLength);
+            });
+               
         },
         getCurrentPlayer : function(){
             return players[turn.currentPlayer];

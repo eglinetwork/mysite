@@ -21,7 +21,7 @@ YUI({
             requires: ['base','node','yql']
         }
     }
-}).use('pairs_layout','pairs_settings','pairs_game','pairs_photoset', function(Y) {
+}).use('pairs_layout','pairs_settings','pairs_game', function(Y) {
 
     // On domready init the application
     var init = function() {
@@ -29,7 +29,6 @@ YUI({
         Y.PAIRS.layout.init();          
         Y.PAIRS.settings.init();                  
         Y.PAIRS.game.init(); 
-        Y.PAIRS.photoset.init(); 
          
     };
     Y.on("domready", init);

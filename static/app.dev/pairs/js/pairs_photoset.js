@@ -11,9 +11,6 @@ YUI.add('pairs_photoset', function(Y) {
 
     Y.namespace('PAIRS');
     Y.PAIRS.photoset = {
-        init : function(){
-
-        },
         createNew : function(themeQuery,photosetLength){
             var nodePhotoList = Y.one('#tabPhotos ul'), 
             nodeCardTable = Y.one('#cardTable'),
