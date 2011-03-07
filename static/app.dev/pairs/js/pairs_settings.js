@@ -4,10 +4,7 @@
 
 YUI.add('pairs_settings', function(Y) {
  
-    var foo = 'bar',
-    privateFunction = function(){
-        alert("privateFunction");
-    };
+    // No private properties or functions
 
     Y.namespace('PAIRS');
     Y.PAIRS.settings = {
