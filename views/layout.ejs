@@ -23,6 +23,13 @@
         <!-- All JavaScript loaded asynchronous, except for Modernizr which enables HTML5 elements & feature detects -->
         <script src="jslib/modernizr/modernizr-<%= jslib_modernizr_version %>.min.js"></script>
 
+        <!-- Define the application name and version in a global object -->
+        <script>
+            APP = {};
+            APP.version = '<%= app_version %>';
+            APP.name = '<%= app_name %>';
+        </script>        
+        
         <!-- Grab Yahoo CDN's YUI -->
         <script src="//yui.yahooapis.com/<%= jslib_yui_version %>/build/yui/yui-min.js"></script>
         <!-- Loading the application bootstrap script -->
@@ -31,7 +38,7 @@
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/combo?<%= jslib_yui_version %>/build/cssfonts/fonts-min.css&<%= jslib_yui_version %>/build/cssreset/reset-min.css&<%= jslib_yui_version %>/build/cssgrids/grids-min.css&<%= jslib_yui_version %>/build/cssbase/base-min.css">
         <link rel="stylesheet" type="text/css" href="app.<%= app_version %>/<%= app_name %>/assets/<%= app_name %>.css">
-
+        
     </head>
     <body>
 

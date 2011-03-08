@@ -5,19 +5,19 @@
 YUI({
     modules:  {
         pairs_layout: {
-            fullpath: 'app.dev/pairs/js/pairs_layout.js',
+            fullpath: 'app.'+APP.version+'/pairs/js/pairs_layout.js',
             requires: ['base','node','tabview','overlay']
         },
         pairs_settings: {
-            fullpath: 'app.dev/pairs/js/pairs_settings.js',
+            fullpath: 'app.'+APP.version+'/pairs/js/pairs_settings.js',
             requires: ['base','node']
         },        
         pairs_game: {
-            fullpath: 'app.dev/pairs/js/pairs_game.js',
+            fullpath: 'app.'+APP.version+'/pairs/js/pairs_game.js',
             requires: ['base','node','overlay','anim','datatype-date']
         },
         pairs_photoset: {
-            fullpath: 'app.dev/pairs/js/pairs_photoset.js',
+            fullpath: 'app.'+APP.version+'/pairs/js/pairs_photoset.js',
             requires: ['base','node','yql']
         }
     }
