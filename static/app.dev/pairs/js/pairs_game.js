@@ -4,8 +4,7 @@
 
 YUI.add('pairs_game', function(Y) {
  
-    var cards,
-    game,
+    var game,
     turn,
     players,
     createCards = function(){
@@ -13,8 +12,6 @@ YUI.add('pairs_game', function(Y) {
         nodeCardTable = Y.one('#cardTable'),
         nodeCardRows, cardIndex = 0,
         cardsLength = game.photosetLength * 2;
-
-        cards = [];
 
         if(cardsLength<=32){
             cardsInRow = Math.ceil(cardsLength/4);
@@ -33,44 +30,30 @@ YUI.add('pairs_game', function(Y) {
         for (var i=0,len=nodeCardRows.size(); i<len; i++){
             for (var j=0; j<cardsInRow; j++){
                 if(cardIndex < cardsLength){
-                    nodeCardRows.item(i).append('<div data-cardindex="'+cardIndex+'" class="card"><div class="inner face"></div><div class="inner back"></div></div>');
-                    // TODO: Remove the faceDown property
-                    cards[cardIndex] = {
-                        faceDown : true
-                    };
+                    nodeCardRows.item(i).append('<div class="card"><div class="inner face"></div><div class="inner back"></div></div>');
                     cardIndex++;
                 }
             }
         }
 
-        var onClickCard = function(e) {
-            var card, cardNode, cardIndex, photoId;
-            cardNode = e.currentTarget;
-            cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
-            card = cards[cardIndex];
-            
+        var onClickCard = function(e) {   
+            var cardNode = e.currentTarget;
+
             var faceDownAllCards = function(){
-                Y.all('#cardTable .card').each(function(n){
-                    if(cards[parseInt(n.getAttribute('data-cardindex'),10)].faceDown == false){
-                        flipCard(n);
-                    }
-                });
+                Y.all('#cardTable .faceup').removeClass('faceup');
             }
 
             if(game.status > 0 && game.status < 10){
-                if(turn.flippedCards.length == 0){
+                if(Y.all('#cardTable .faceup').size() === 0){
                     startTurn();
                     flipCard(cardNode);
-                    turn.flippedCards[0] = cardIndex;
-                } else if (turn.flippedCards.length == 1){
-                    if(turn.flippedCards[0] !== cardIndex){
+                } else if (Y.all('#cardTable .faceup').size() === 1){
+                    if(Y.one('#cardTable .faceup') !== cardNode){
                         flipCard(cardNode);
-                        turn.flippedCards[1] = cardIndex;
                         // Automatically flip cards
                         window.setTimeout(function() {
                             // If not already manually flipped
-                            if (turn.flippedCards.length == 2){
-                                
+                            if (Y.all('#cardTable .faceup').size() === 2){
                                 endTurn();
                                 faceDownAllCards();
                             }
@@ -78,7 +61,6 @@ YUI.add('pairs_game', function(Y) {
 
                     }
                 } else {
-
                     endTurn();
                     faceDownAllCards();
                 }
@@ -87,33 +69,22 @@ YUI.add('pairs_game', function(Y) {
         Y.all('#cardTable .card').on('click', onClickCard);
     },
     flipCard = function(cardNode){
-        var card, cardIndex;
-        cardIndex = parseInt(cardNode.getAttribute('data-cardindex'),10);
-        card = cards[cardIndex];
-
-        if(card.faceDown){
-            card.faceDown = false;
-            // Show the photo and hide the back
-            // Add faceup class
-            cardNode.addClass("faceup");
-        } else {
-            card.faceDown = true;
+        if(cardNode.hasClass('faceup')){
             // Hide the photo and show the back
             // Remove faceup class
             cardNode.removeClass("faceup");
+        } else {
+            // Show the photo and hide the back
+            // Add faceup class
+            cardNode.addClass("faceup");
         }
     },
-    hideCard = function(cardNode){
-        // Hide the card
-        cardNode.setStyle("visibility","hidden");
-    },
-    wonPair = function(flippedCards){
+    wonPair = function(){
         var cardIndex;
-        Y.all('#cardTable .card').each(function(n){
-            cardIndex = parseInt(n.getAttribute('data-cardindex'),10);
-            if(cardIndex == flippedCards[0] || cardIndex == flippedCards[1]){
-                hideCard(n);
-            }
+        Y.all('#cardTable .faceup').each(function(n){
+            flipCard(n);
+            // Hide the card
+            n.setStyle("visibility","hidden");
         })
     },
     startTurn = function(){
@@ -126,14 +97,11 @@ YUI.add('pairs_game', function(Y) {
         turn.endDate = null;
     },
     endTurn = function(){
-        var cardIndex0 = turn.flippedCards[0],
-        cardIndex1 = turn.flippedCards[1];
-
         turn.endDate = new Date();
         players[turn.currentPlayer].usedTime += turn.endDate - turn.startDate;
 
         if(Y.all('#cardTable .faceup img').item(0).get('src') == Y.all('#cardTable .faceup img').item(1).get('src')){
-            wonPair(turn.flippedCards);
+            wonPair();
             // Current player can play again
             players[turn.currentPlayer].wonPairs += 1;
 			
@@ -175,8 +143,6 @@ YUI.add('pairs_game', function(Y) {
             }
             Y.PAIRS.game.setInfo(players[turn.currentPlayer].name + '. It is your turn now.')
         }
-
-        turn.flippedCards = [];
     },
     updateGameStats = function(){
         var bodyContent = '',
@@ -248,9 +214,6 @@ YUI.add('pairs_game', function(Y) {
 
     Y.namespace('PAIRS');
     Y.PAIRS.game = {
-        init : function(){
-            
-        },
         startNew : function(){
                           
             players = Y.PAIRS.settings.getPlayers();
@@ -269,17 +232,13 @@ YUI.add('pairs_game', function(Y) {
             // Set the initial turn status
             turn = {
                 currentPlayer : 0,
-                flippedCards: [],
                 counter : 0,
                 startDate : null,
                 endDate: null
             };
                      
             createCards();
-            
-            Y.use('pairs_photoset', function(Y) {
-                Y.PAIRS.photoset.createNew(game.themeQuery, game.photosetLength);
-            });
+            Y.PAIRS.photoset.createNew(game.themeQuery, game.photosetLength);
                
         },
         getCurrentPlayer : function(){
