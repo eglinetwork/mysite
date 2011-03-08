@@ -4,10 +4,7 @@
 
 YUI.add('pairs_photoset', function(Y) {
  
-    var privateProperty = "private",
-    privateFunction = function(){
-        alert("privateFunction");
-    };
+    // No private properties or functions
 
     Y.namespace('PAIRS');
     Y.PAIRS.photoset = {
