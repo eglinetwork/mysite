@@ -72,11 +72,11 @@ YUI.add('pairs_game', function(Y) {
         if(cardNode.hasClass('faceup')){
             // Hide the photo and show the back
             // Remove faceup class
-            cardNode.removeClass("faceup");
+            cardNode.removeClass('faceup');
         } else {
             // Show the photo and hide the back
             // Add faceup class
-            cardNode.addClass("faceup");
+            cardNode.addClass('faceup');
         }
     },
     wonPair = function(){
@@ -84,7 +84,7 @@ YUI.add('pairs_game', function(Y) {
         Y.all('#cardTable .faceup').each(function(n){
             flipCard(n);
             // Hide the card
-            n.setStyle("visibility","hidden");
+            n.setStyle('visibility','hidden');
         })
     },
     startTurn = function(){
