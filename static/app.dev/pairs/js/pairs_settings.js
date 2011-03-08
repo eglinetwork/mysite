@@ -9,7 +9,15 @@ YUI.add('pairs_settings', function(Y) {
     Y.namespace('PAIRS');
     Y.PAIRS.settings = {
         init : function(){
-
+            // If placeholders are not supported
+            // write placeholder values as default values
+            if(!Modernizr.input['placeholder']){
+                Y.all('#tabSettings form input').each(function(node,nodeIndex,nodeList){
+                    if (node.getAttribute('placeholder') != ""){
+                        node.set('value',node.getAttribute('placeholder'));
+                    }
+                });
+            } 
         }, 
         getPhotosetLength : function(){
             var photosetLength

@@ -17,7 +17,7 @@ YUI.add('pairs_layout', function(Y) {
 
             // Start a new game on blur of tab settings
             if (e.prevVal && e.prevVal.get('index') === 0){
-                Y.PAIRS.game.startNew();
+                startNewGame();
             }
 
             // Set the game info title on selection of tab table
@@ -153,10 +153,15 @@ YUI.add('pairs_layout', function(Y) {
 
         Y.one('#buttonPlayAgain').on('click',function(){
             gameOverWidget.hide();
-            Y.PAIRS.game.startNew();
+            startNewGame();
         });
         Y.one('#buttonShowPhotos').on('click',function(){
             tabview.selectChild(2);
+        });
+    },
+    startNewGame = function(){
+        Y.use('pairs_game','pairs_photoset', function(Y) {
+            Y.PAIRS.game.startNew();
         });
     }
 
@@ -168,16 +173,6 @@ YUI.add('pairs_layout', function(Y) {
             createAboutWidget();
             createGameStatsWidget();
             createGameOverWidget();
-            
-            // If placeholders are not supported
-            // write placeholder values as default values
-            if(!Modernizr.input['placeholder']){
-                Y.all('#tabSettings form input').each(function(node,nodeIndex,nodeList){
-                    if (node.getAttribute('placeholder') != ""){
-                        node.set('value',node.getAttribute('placeholder'));
-                    }
-                });
-            } 
             
             // Add the event listener to the start button    
             Y.one('#buttonPlayNow').on('click',function(){
