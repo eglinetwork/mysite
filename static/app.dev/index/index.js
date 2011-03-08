@@ -3,9 +3,9 @@
  */
 
 YUI().use('node','tabview', function(Y) {
- 
     function init() {
-        // Y.log('domready fired');
+
+        Y.one('.yui3-js-enabled').removeClass('yui3-js-enabled');
 
         var tabview = new Y.TabView({
             srcNode: '#tabview'
@@ -14,5 +14,4 @@ YUI().use('node','tabview', function(Y) {
         
     }
     Y.on("domready", init);
- 
 });

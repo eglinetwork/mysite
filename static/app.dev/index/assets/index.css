@@ -2,6 +2,10 @@
  * @author egli
 */
 
+.yui3-js-enabled {
+    display: none;
+}
+
 /* Font faces */
 
 @font-face {

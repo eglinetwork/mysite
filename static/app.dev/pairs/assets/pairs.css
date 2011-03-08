@@ -2,6 +2,10 @@
 Styles for the photo pairs game
 */
 
+.yui3-js-enabled {
+    display: none;
+}
+
 /* Font faces */
 
 @font-face {
