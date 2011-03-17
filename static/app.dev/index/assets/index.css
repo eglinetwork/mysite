@@ -60,8 +60,9 @@ a:hover {
     color: #D7D7D7;
     background: #666666;
     border: 1px solid #333333;
-    background: -moz-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
     background: -webkit-gradient(linear, left top, left bottom, from(#666666), to(#000000));
+    background: -moz-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000)');        
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
@@ -123,12 +124,14 @@ a:hover {
     background: #0095CD;
     background: -webkit-gradient(linear, left top, left bottom, from(#00ADEE), to(#0078A5));
     background: -moz-linear-gradient(top, #00ADEE, #0078A5);
+    background: -o-linear-gradient(top, #00ADEE, #0078A5);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ADEE', endColorstr='#0078A5');
 }
 .blue:hover {
     background: #007EAD;
     background: -webkit-gradient(linear, left top, left bottom, from(#0095CC), to(#0095CC));
     background: -moz-linear-gradient(top, #0095CC, #00678E);
+    background: -o-linear-gradient(top, #0095CC, #00678E);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095CC', endColorstr='#0095CC');
 }
 
