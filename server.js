@@ -83,6 +83,7 @@ conf.initConfig(
                     title : 'eglinetwork | Marco Egli',
                     app_version : conf.app.version,
                     app_name : 'index',
+                    lang : "en",
                     description: 'This is my personal website. Here can you find a few things about me and some of my projects.',
                     author: 'Marco Egli',
                     analyticssiteid: conf.analyticssiteid,
@@ -98,6 +99,7 @@ conf.initConfig(
                     title : 'Photo Pairs',
                     app_version : conf.app.version,
                     app_name : 'pairs',
+                    lang : "en",
                     description: 'Play pairs with beautiful photos. Select your personal photo theme to get individual variants of card sets. Play an easy game with 8 pairs or play it difficult with 20 pairs. Challenge yourself or play with up to four players. Pairs is also known as Memory, Pelmanism, Shinkei-suijaku, Pexeso or simply Concentration',
                     author: 'Marco Egli',
                     analyticssiteid: conf.analyticssiteid,
@@ -106,6 +108,23 @@ conf.initConfig(
                 }
             });
         });
+        
+
+        server.get('/druidnight', function(req,res){
+            res.render('druidnight.ejs', {
+                locals : { 
+                    title : '2. Nacht der Druiden',
+                    app_version : conf.app.version,
+                    app_name : 'druidnight',
+                    lang : "de",
+                    description: 'Einladung zur zweiten Nacht der Druiden',
+                    author: 'Marco Egli',
+                    analyticssiteid: conf.analyticssiteid,
+                    jslib_yui_version: conf.jslib.yui.version,
+                    jslib_modernizr_version: conf.jslib.modernizr.version 
+                }
+            });
+        });        
 
         //A Route for Creating a 500 Error (Useful to keep around)
         server.get('/500', function(req, res){
