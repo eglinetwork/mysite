@@ -62,6 +62,12 @@ body {
     .printonly {
         display: none;
     }
+    
+    header {
+        font-family: OrotundHeavy,sans-serif; 
+        text-align: center;
+        padding: 2em 0;
+    }
 }
 
 
@@ -70,15 +76,17 @@ body {
 h1 {
     font-size:364%;
     margin: 0;
-    padding: 1em 0.5em;
-    text-align: center;
-    font-family: OrotundHeavy,sans-serif; 
+    padding: 0.5em 0;
     font-weight: normal;
 }
 
 p {
     font-size: 182%;
     margin-bottom: 0.5em;
+}
+
+.small {
+    font-size: 108%;
 }
 
 a,
