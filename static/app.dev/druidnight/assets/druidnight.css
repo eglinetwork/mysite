@@ -102,6 +102,19 @@ a:hover,
     margin-bottom: 3em;
 }
 
+.appblock {
+    border: 3px solid #8dc347;
+    vertical-align: middle;
+    background-color: #ffffff;
+    height: 40px;
+    line-height: 40px;
+}
+
+.appicon {
+    float: left;
+    margin: 0 1.5em 0 0.5em;
+}
+
 @media print {
     * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important;
         -ms-filter: none !important; } /* Black prints faster: sanbeiji.com/archives/953 */

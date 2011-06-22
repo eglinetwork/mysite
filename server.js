@@ -93,7 +93,11 @@ conf.initConfig(
             });
         });
 
-        server.get('/pairs', function(req,res){
+        server.get('/pairs.:theme?', function(req,res){
+            var pairs_theme = "Steam Engine";
+            if (req.params && req.params.theme){
+                pairs_theme = req.params.theme;
+            }
             res.render('pairs.ejs', {
                 locals : { 
                     title : 'Photo Pairs',
@@ -104,7 +108,8 @@ conf.initConfig(
                     author: 'Marco Egli',
                     analyticssiteid: conf.analyticssiteid,
                     jslib_yui_version: conf.jslib.yui.version,
-                    jslib_modernizr_version: conf.jslib.modernizr.version 
+                    jslib_modernizr_version: conf.jslib.modernizr.version,
+                    pairs_theme : pairs_theme
                 }
             });
         });
