@@ -21,7 +21,7 @@ conf.initConfig(
         // Register ejs as .html
         server.register('.html', require('ejs'));
         server.set('view engine', 'html');
-        server.use(connect.bodyDecoder());
+        //server.use(connect.bodyDecoder());
         server.use(connect.staticProvider({
             root: __dirname + '/static', 
             cache: true, 
