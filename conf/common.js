@@ -8,7 +8,7 @@ exports.conf = {
     },
     jslib : {
         yui : {
-            version : '3.4.0'
+            version : '3.4.1'
         },
         modernizr : {
             version : '1.7'
