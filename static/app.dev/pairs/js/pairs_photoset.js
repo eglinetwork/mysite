@@ -15,13 +15,13 @@ YUI.add('pairs_photoset', function(Y) {
             cardsLength = nodelistCards.size(),
             photoFlickrUrl,
             loadedPhotos = 0,
-            yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+themeQuery+'" and license="3")',
+            yqlString = 'select * from flickr.photos.sizes where photo_id in (select id from flickr.photos.search('+ photosetLength +') where text="'+themeQuery+'" and api_key="822fb2e40856cc925f8fabf1942f3e61" and license="3") and api_key="822fb2e40856cc925f8fabf1942f3e61"',            
             photoset = {};
 
             Y.PAIRS.game.setInfo('Loading Photos ...');
             nodeCardTable.removeClass('photosLoaded');
 
-            Y.YQL(yqlString, function(r) {
+            Y.YQL(yqlString, function(r) {                
                 if(r.query.results){
                     var imageSizes = r.query.results.size,
                     urlParts = [], photoId, cardphoto = [], cardIndex, cardAssigns;
