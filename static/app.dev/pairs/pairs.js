@@ -24,9 +24,7 @@ YUI({
 }).use('pairs_layout','pairs_settings', function(Y) {
     // On domready init the application
     var init = function() {
-
         Y.one('.yui3-js-enabled').removeClass('yui3-js-enabled');
-
         Y.PAIRS.layout.init();          
         Y.PAIRS.settings.init();                  
          
