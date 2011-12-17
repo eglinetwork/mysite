@@ -22,7 +22,7 @@ YUI.add('pairs_photoset', function(Y) {
             nodeCardTable.removeClass('photosLoaded');
 
             Y.YQL(yqlString, function(r) {                
-                if(r.query.results){
+                if(r.query.results){                    
                     var imageSizes = r.query.results.size,
                     urlParts = [], photoId, cardphoto = [], cardIndex, cardAssigns;
 

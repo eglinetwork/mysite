@@ -69,6 +69,8 @@ YUI.add('pairs_game', function(Y) {
         Y.all('#cardTable .card').on('click', onClickCard);
     },
     flipCard = function(cardNode){
+        var posLeft,posTop;
+        
         if(cardNode.hasClass('faceup')){
             // Hide the photo and show the back
             // Remove faceup class
@@ -77,6 +79,11 @@ YUI.add('pairs_game', function(Y) {
             // Show the photo and hide the back
             // Add faceup class
             cardNode.addClass('faceup');
+
+            posLeft = Math.round((cardNode.one('.face').get('offsetWidth')-cardNode.one('img').get('offsetWidth'))/2);
+            posTop = Math.round((cardNode.one('.face').get('offsetHeight')-cardNode.one('img').get('offsetHeight'))/2);   
+            cardNode.one('img').setStyle('left',posLeft+'px');
+            cardNode.one('img').setStyle('top',posTop+'px');  
         }
     },
     wonPair = function(){
