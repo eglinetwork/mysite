@@ -3,7 +3,7 @@ exports.conf = {
     port: 80,
     analyticssiteid : 'UA-10297507-1',
     app : {
-        version : '122'        
+        version : '123'        
     },
     jslib : {
         yui : {

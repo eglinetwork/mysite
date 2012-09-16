@@ -1,7 +1,8 @@
 {
     "name": "eglinetwork-mysite",
     "description": "My Personal Website | eglinetwork ",
-    "version": "0.5.2",
+    "author": "Marco Egli <eglinetwork@gmail.com>",
+    "version": "0.5.3",
     "private": true,
     "contributors": [ {
         "name": "Marco Egli",
