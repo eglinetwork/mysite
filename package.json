@@ -3,6 +3,9 @@
     "description": "My Personal Website | eglinetwork ",
     "version": "0.5.0",
     "private": true,
+    "subdomain" : "eglinetwork",
+    "scripts.start" : "app,js",
+    "engines" : "0.8.8",
     "dependencies": {
         "express": "3.x",
         "ejs" : "0.8.x",
