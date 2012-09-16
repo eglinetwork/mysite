@@ -11,11 +11,17 @@ conf.initConfig(
             return;
         }
 
+        if(conf.env == 'development'){
+            conf.app.version = 'dev';
+        }
+
         app.use(function(err, req, res, next){
             console.error(err.stack);
             res.send(500, 'Something broke!');
         });
-        app.use(express.static(__dirname + '/static'));
+        app.use(express.static(__dirname + '/static', {
+            maxAge: conf.maxAge
+        }));
 
         app.engine('.html', require('ejs').__express);
         app.set('view engine', 'html');
