@@ -9,6 +9,10 @@
         "email": "eglinetwork@gmail.com"
     } ],
     "subdomain" : "eglinetwork",
+    "domains": [
+        "eglinetwork.ch",
+        "www.eglinetwork.ch"
+    ],    
     "dependencies": {
         "express": "3.x",
         "ejs" : "0.8.x",
