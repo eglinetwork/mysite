@@ -5,11 +5,11 @@ exports.conf = {
     analyticssiteid : 'UA-10297507-1',
     maxAge : 31557600000,
     app : {
-        version : '125'        
+        version : '126'        
     },
     jslib : {
         yui : {
-            version : '3.4.1'
+            version : '3.7.2'
         },
         modernizr : {
             version : '1.7'
