@@ -1,0 +1,404 @@
+/*
+Styles for the photo pairs game
+*/
+
+.yui3-js-enabled {
+    display: none;
+}
+
+/* Font faces */
+
+@font-face {
+    font-family: 'AurulentSansRegular';
+    src: url('fonts/AurulentSans-Regular-webfont.eot');
+    src: local('?'), url('fonts/AurulentSans-Regular-webfont.woff') format('woff'), url('fonts/AurulentSans-Regular-webfont.ttf') format('truetype'), url('AurulentSans-Regular-webfont.svg#webfont2OnxumJv') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AurulentSansBold';
+    src: url('fonts/AurulentSans-Bold-webfont.eot');
+    src: local('?'), url('fonts/AurulentSans-Bold-webfont.woff') format('woff'), url('fonts/AurulentSans-Bold-webfont.ttf') format('truetype'), url('AurulentSans-Bold-webfont.svg#webfontLWt2zlrh') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Media queries for fixed layout */
+
+body { margin: auto; width: 980px; }
+.card {	width: 110px; height: 83px; }
+
+@media screen and (max-width: 619px) {
+    body { margin: auto; width: 460px; }
+    .card { width: 46px; height: 34px; }      
+}
+@media screen and (min-width: 620px) and (max-width: 779px) {
+    body { margin: auto; width: 600px; }
+    .card { width: 63px; height: 47px; }
+}
+@media screen and (min-width: 780px) and (max-width: 999px) {
+    body { margin: auto; width: 760px; }
+    .card { width: 83px; height: 62px; }
+}
+@media screen and (min-width: 1000px) and (max-width: 1259px) {
+    body { margin: auto; width: 980px; }
+    .card { width: 110px; height: 83px; }   
+}
+@media screen and (min-width: 1260px) and (max-width: 1579px) {
+    body { margin: auto; width: 1240px; }
+    .card { width: 143px; height: 107px; }
+}
+@media screen and (min-width: 1580px) and (max-width: 1899px) {
+    body { margin: auto; width: 1560px; }
+    .card { width: 183px; height: 137px; } 
+}
+@media screen and (min-width: 1900px) {
+    body { margin: auto; width: 1880px;}
+    .card { width: 223px; height: 167px; }
+}
+
+/* Title styles */
+
+h1 {
+    font-family: AurulentSansBold,Sans-Serif;
+}
+
+h2 {
+    font-family: AurulentSansBold,Sans-Serif;
+}
+
+h3 {
+    font-family: AurulentSansBold,Sans-Serif;
+}
+
+a {
+    text-decoration: none;
+    color: #0095CD;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#divGameInfo,
+#applicationTitle {
+    color: #D7D7D7;
+    background: #666666;
+    border: 1px solid #333333;
+    background: -webkit-gradient(linear, left top, left bottom, from(#666666), to(#000000));
+    background: -moz-linear-gradient(center top , #666666, #000000) repeat scroll 0 0 transparent;
+    background: -o-linear-gradient(top , #666666, #000000) repeat scroll 0 0 transparent;
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000)');        
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    -o-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;    
+}
+
+#divGameInfo h2,
+#applicationTitle {
+    font-size: 153.9%;
+    padding: 1em 0.5em;
+    margin: 0;
+    display: inline-block;
+}
+
+.yui3-tabview-list {
+    margin: 0.5em 0;
+    font-family: AurulentSansRegular,Sans-Serif;
+}
+
+.yui3-tabview-list .yui3-tab a {
+    font-size: 108%;
+    color: #606060;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    width: 7em;
+}
+
+.yui3-tabview-list .yui3-tab-selected {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+#divGameInfo .button {
+    float: right;
+    margin: 2em 1em 0 0;
+}
+
+/* Fieldset, Label and Input styles */
+
+#tabSettings form {
+    margin: 1em 0;
+}
+
+fieldset {
+    margin: 0 0 10px 0;
+}
+
+label {
+    display: block;
+    font-family: AurulentSansBold,Sans-Serif;
+    line-height: 1.4;
+    font-size: 108%;
+    color: #0078A5;
+    text-shadow: 0 1px 1px #fff;
+}
+
+fieldset input[type="text"],
+fieldset input[type="number"] {
+    width: 215px;
+    padding: 5px 8px;
+    font-size: 123.1%;
+    color: #666;
+    border: none;
+    background-color: #D9EEF7;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#fieldsetPlayersNames input[type="text"]{
+    display: block;
+    margin: 0.1em 0;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+}
+input:-moz-placeholder {
+    font-style: italic;
+}
+
+#tabSettings .yui3-overlay {
+    background: #EDEDED;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.9)), to(rgba(237, 237, 237, 0.9)));
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.9), rgba(237, 237, 237, 0.9));
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 0.9), rgba(237, 237, 237, 0.9));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#EDEDED');
+    border: 1px solid #B7B7B7;
+    color: #606060;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+
+}
+
+#tabSettings .yui3-overlay .yui3-widget-hd,
+#tabSettings .yui3-overlay .yui3-widget-bd,
+#tabSettings .yui3-overlay .yui3-widget-ft {
+    padding: 0.5em 1em;
+    overflow: auto;
+}
+
+#tabSettings .yui3-overlay .yui3-widget-bd img {
+    float: right;
+    padding: 0.5em; 
+}
+
+#tabSettings ul {
+    margin: 0 1em;
+}
+#tabSettings li {
+    padding-bottom: 0.5em;
+}
+
+/* Card and tableTab styles */
+
+.cardRow .card:first-child {
+    margin: 5px 5px 5px 0;
+}
+
+.cardRow .card:last-child {
+    margin: 5px 0 5px 5px;
+}
+
+.photosLoaded .card {
+    cursor: pointer;
+}
+
+.card {
+    display: inline-block;
+    border: 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 5px;
+    overflow: hidden;
+    background: #eee;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.card .inner {
+    position:relative;
+    height: 82%;
+    margin: 6%;
+    border: solid 1px #0076A3;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+}
+
+.card .back {
+    display: block;
+    background: #0095CD;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00ADEE), to(#0078A5));
+    background: -moz-linear-gradient(top, #00ADEE, #0078A5);
+    background: -o-linear-gradient(top, #00ADEE, #0078A5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ADEE', endColorstr='#0078A5');
+}
+
+.card .face {
+    border: solid 1px #B7B7B7;
+    overflow: hidden;
+    text-align: center;
+    display: none
+}
+
+.faceup {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.faceup .inner {
+    height: 90%;
+    margin: 3%;
+}
+
+.faceup .back {
+    display: none;
+}
+
+.faceup .face {
+    display: block;
+}
+
+
+/* image styles */
+
+.portrait {
+    height: 120%;
+    position:absolute;
+}
+
+.landscape {
+    width: 110%;
+    position:absolute;
+}
+
+/* Game stats widgeet styles */
+
+#tabTable .yui3-overlay {
+    background: #FAA51A;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(250, 165, 26, 0.9)), to(rgba(244, 126, 32, 0.9)));
+    background: -moz-linear-gradient(top, rgba(250, 165, 26, 0.9), rgba(244, 126, 32, 0.9));
+    background: -o-linear-gradient(top, rgba(250, 165, 26, 0.9), rgba(244, 126, 32, 0.9));
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAA51A', endColorstr='#F47A20');
+    border: 1px solid #DA7C0C;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    overflow: auto;
+}
+
+#tabTable .yui3-overlay .yui3-widget-hd,
+#tabTable .yui3-overlay .yui3-widget-bd {
+    padding: 1em;
+}
+
+#tabTable p {
+    margin-bottom: 0.5em
+}
+
+/* button styles */
+
+.button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 108%;
+    font-weight: bold;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.button:hover {
+    text-decoration: none;
+}
+.button:active {
+    position: relative;
+    top: 1px;
+}
+
+.blue {
+    color: #D9EEF7;
+    border: solid 1px #0076A3;
+    background: #0095CD;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00ADEE), to(#0078A5));
+    background: -moz-linear-gradient(top, #00ADEE, #0078A5);
+    background: -o-linear-gradient(top, #00ADEE, #0078A5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ADEE', endColorstr='#0078A5');
+}
+.blue:hover {
+    background: #007EAD;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0095CC), to(#0095CC));
+    background: -moz-linear-gradient(top, #0095CC, #00678E);
+    background: -o-linear-gradient(top, #0095CC, #00678E);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095CC', endColorstr='#0095CC');
+}
+.blue:active {
+    color: #80BED6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0078A5), to(#00ADEE));
+    background: -moz-linear-gradient(top, #0078A5, #00ADEE);
+    background: -o-linear-gradient(top, #0078A5, #00ADEE);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078A5', endColorstr='#00ADEE');
+}
+
+/* Styles for the photo list */
+
+#tabPhotos img{
+    vertical-align: middle;
+}
+
+#tabPhotos ul {
+    margin: 0;
+}
+
+#tabPhotos li {
+    list-style: none;
+    margin: 1em 0;
+    padding: 0.5em;
+    background-color: #D9EEF7;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#tabPhotos li a {
+    padding: 0 2em;
+    font-family: AurulentSansBold,Sans-Serif;
+    font-size: 123.1%;
+    color: #666;
+}
