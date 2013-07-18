@@ -5,7 +5,7 @@ exports.conf = {
     analyticssiteid : 'UA-10297507-1',
     maxAge : 31557600000,
     app : {
-        version : '126'        
+        version : '135'        
     },
     jslib : {
         yui : {
