@@ -13,7 +13,7 @@
         "eglinetwork.ch",
         "www.eglinetwork.ch",
     	"egli.io",
-		"www.egli.io"        
+	"www.egli.io"        
     ],    
     "dependencies": {
         "express": "3.x",
